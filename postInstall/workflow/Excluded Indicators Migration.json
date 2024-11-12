@@ -1,4 +1,5 @@
 {
+    "@context": "\/api\/3\/contexts\/Workflow",
     "@type": "Workflow",
     "triggerLimit": null,
     "name": "Excluded Indicators Migration",
@@ -11,16 +12,16 @@
     "remoteExecutableFlag": false,
     "parameters": [],
     "synchronous": false,
-    "collection": "\/api\/3\/workflow_collections\/d4665980-9836-4181-9dc1-84dc61bfc696",
+    "collection": "\/api\/3\/workflow_collections\/4dc865c8-012e-4326-8be5-252b723ea734",
     "versions": [],
     "triggerStep": "\/api\/3\/workflow_steps\/9e687367-0a0e-4116-9f19-129e888863cc",
     "steps": [
         {
             "@type": "WorkflowStep",
-            "name": "Compute Migration Values",
+            "name": "Compute Updated Values",
             "description": null,
             "arguments": {
-                "updatedMigrationIOCList": "{{ vars.steps.Get_Migration_Values |  items2dict(key_name='indicatorType', value_name='exclusionDetails') }}"
+                "_temp": "{% for item in vars.steps.Get_Migration_Values %}\n{{vars.exclusionConfiguration.update({item.indicatorType : item.exclusionDetails})}}\n{% endfor %}"
             },
             "status": null,
             "top": "570",
@@ -33,7 +34,9 @@
             "@type": "WorkflowStep",
             "name": "Configuration",
             "description": null,
-            "arguments": [],
+            "arguments": {
+                "updatedMigrationIOC": "{}"
+            },
             "status": null,
             "top": "165",
             "left": "125",
@@ -82,17 +85,15 @@
             "description": null,
             "arguments": {
                 "for_each": {
-                    "item": "{{vars.steps.Get_Exclusion_Configuration[0].jSONValue |  dict2items(key_name='indicatorType', value_name='exclusionDetails') }}",
+                    "item": "{{vars.steps.Get_Exclusion_Configuration[0].jSONValue.items() | list}}",
                     "parallel": false,
-                    "condition": "{{not vars.item.exclusionDetails.migratedFromGlobalVariable}}"
+                    "condition": "{{not vars.item[1].migratedFromGlobalVariable}}"
                 },
                 "arguments": {
                     "exclusion_details": "{{vars.item}}"
                 },
                 "apply_async": false,
-                "step_variables": {
-                    "updatedMigrationIOCList": "{{vars.steps.Get_Migration_Values}}"
-                },
+                "step_variables": [],
                 "pass_parent_env": false,
                 "pass_input_record": true,
                 "workflowReference": "\/api\/3\/workflows\/289228de-4857-43bb-a34d-94f26bf56725"
@@ -131,8 +132,9 @@
             "description": null,
             "arguments": {
                 "resource": {
-                    "jSONValue": "{{vars.exclusionConfiguration | combine(vars.updatedMigrationIOCList)}}"
+                    "jSONValue": "{{vars.exclusionConfiguration}}"
                 },
+                "_showJson": false,
                 "operation": "Append",
                 "collection": "{{vars.steps.Get_Exclusion_Configuration[0]['@id']}}",
                 "__recommend": [],
@@ -153,13 +155,13 @@
     "routes": [
         {
             "@type": "WorkflowRoute",
-            "name": "Compute Migration Values -> Update Migrated Values",
+            "name": "Compute Updated Values -> Update Migrated Values",
             "targetStep": "\/api\/3\/workflow_steps\/d9585d8b-1018-45e8-8df6-4705d1857805",
             "sourceStep": "\/api\/3\/workflow_steps\/1338d048-5eef-4662-a83c-081eeaf28c09",
             "label": null,
             "isExecuted": false,
             "group": null,
-            "uuid": "311f85b5-63c3-4434-b31b-4658caf67109"
+            "uuid": "59959185-9e40-45d5-993f-74dd17c75783"
         },
         {
             "@type": "WorkflowRoute",
@@ -179,17 +181,17 @@
             "label": null,
             "isExecuted": false,
             "group": null,
-            "uuid": "ef8de1d9-4fdd-4ce9-85fd-d9f325c21d08"
+            "uuid": "063c5d45-6c3d-44be-b079-c523f6608fe6"
         },
         {
             "@type": "WorkflowRoute",
-            "name": "Get Migration Values -> test",
+            "name": "Get Migration Values -> Compute Migration Values",
             "targetStep": "\/api\/3\/workflow_steps\/1338d048-5eef-4662-a83c-081eeaf28c09",
             "sourceStep": "\/api\/3\/workflow_steps\/8c832d71-7a88-44d1-84b5-2042489f4a37",
             "label": null,
             "isExecuted": false,
             "group": null,
-            "uuid": "a3c7c2c9-cfd3-4a81-b299-ccb14b33b395"
+            "uuid": "b9c426f0-898d-43e5-bee7-758abc5b5db1"
         },
         {
             "@type": "WorkflowRoute",
