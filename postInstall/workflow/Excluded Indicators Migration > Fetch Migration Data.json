@@ -1,4 +1,5 @@
 {
+    "@context": "\/api\/3\/contexts\/Workflow",
     "@type": "Workflow",
     "triggerLimit": null,
     "name": "Excluded Indicators Migration > Fetch Migration Data",
@@ -36,8 +37,8 @@
             "name": "Configuration",
             "description": null,
             "arguments": {
-                "indicatorType": "{{vars.input.params['exclusion_details'].indicatorType}}",
-                "exclusionDetails": "{{vars.input.params['exclusion_details'].exclusionDetails}}",
+                "indicatorType": "{{vars.input.params['exclusion_details'][0]}}",
+                "exclusionDetails": "{{vars.input.params['exclusion_details'][1]}}",
                 "iocToKeystoreMapping": "{\n    \"IP Address\": \"sfsp-excludelist-ips\",\n    \"URL\": \"sfsp-excludelist-urls\",\n    \"Domain\": \"sfsp-excludelist-domains\",\n    \"Port\": \"sfsp-excludelist-ports\",\n    \"File\": \"sfsp-excludelist-files\",\n    \"CIDR Range\": \"sfsp-excludelist-cidr-ranges\"\n}"
             },
             "status": null,
@@ -176,7 +177,7 @@
             "description": null,
             "arguments": {
                 "indicatorType": "{{vars.indicatorType}}",
-                "exclusionDetails": "{{vars.exclusionDetails | combine({'excludedIOCs': vars.consolidatedIOCList, 'migratedFromGlobalVariable': true})}}"
+                "exclusionDetails": "{% set _temp = vars.exclusionDetails %}\n{% do _temp.update({'excludedIOCs': vars.consolidatedIOCList, 'migratedFromGlobalVariable': true}) %}\n{{_temp}}"
             },
             "status": null,
             "top": "840",
@@ -191,7 +192,7 @@
             "description": null,
             "arguments": {
                 "indicatorType": "{{vars.indicatorType}}",
-                "exclusionDetails": "{{vars.exclusionDetails | combine({'fieldTypeMapping':vars.gblVarFieldMapping, 'migratedFromGlobalVariable': true}, recursive=True)}}"
+                "exclusionDetails": "{% set _temp = vars.exclusionDetails %}\n{% do _temp.fieldTypeMapping.update(vars.gblVarFieldMapping) %}\n{% do _temp.update({'migratedFromGlobalVariable': true}) %}\n{{_temp}}"
             },
             "status": null,
             "top": "705",
@@ -214,13 +215,13 @@
         },
         {
             "@type": "WorkflowRoute",
-            "name": "Configuration -> Get Global Variable Value",
+            "name": "Configuration -> Get Global Variable IOC List",
             "targetStep": "\/api\/3\/workflow_steps\/17bee73f-28d9-45ad-8d63-1b55917c26b0",
             "sourceStep": "\/api\/3\/workflow_steps\/90d580dd-657e-49dd-b6e6-e33bba53463b",
             "label": null,
             "isExecuted": false,
             "group": null,
-            "uuid": "c897425c-e24a-40d2-b258-6af743c46404"
+            "uuid": "029cd276-5280-4f67-b960-312d10b7d0c2"
         },
         {
             "@type": "WorkflowRoute",
