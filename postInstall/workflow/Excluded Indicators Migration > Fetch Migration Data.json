@@ -14,7 +14,7 @@
         "exclusion_details"
     ],
     "synchronous": false,
-    "collection": "\/api\/3\/workflow_collections\/4dc865c8-012e-4326-8be5-252b723ea734",
+    "collection": "\/api\/3\/workflow_collections\/d4665980-9836-4181-9dc1-84dc61bfc696",
     "versions": [],
     "triggerStep": "\/api\/3\/workflow_steps\/eeea5155-181e-4bb4-ad07-2d5721b34173",
     "steps": [
