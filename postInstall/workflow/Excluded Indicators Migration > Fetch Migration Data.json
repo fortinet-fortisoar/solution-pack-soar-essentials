@@ -14,7 +14,7 @@
         "exclusion_details"
     ],
     "synchronous": false,
-    "collection": "\/api\/3\/workflow_collections\/d4665980-9836-4181-9dc1-84dc61bfc696",
+    "collection": "\/api\/3\/workflow_collections\/4dc865c8-012e-4326-8be5-252b723ea734",
     "versions": [],
     "triggerStep": "\/api\/3\/workflow_steps\/eeea5155-181e-4bb4-ad07-2d5721b34173",
     "steps": [
@@ -23,7 +23,7 @@
             "name": "Compute Migration IOC List",
             "description": null,
             "arguments": {
-                "consolidatedIOCList": "{% set isGlobalEmpty = vars.globalVariableIOCList | length == 1 and vars.globalVariableIOCList[0] | length == 0 %}{% set isOldKeyStoreEmpty = vars.oldKeyStoreIOCList | length == 1 and vars.oldKeyStoreIOCList[0] | length == 0 %}{% if isGlobalEmpty and isOldKeyStoreEmpty %}{{ vars.exclusionDetails.excludedIOCs }}{% elif isOldKeyStoreEmpty %}{{ vars.exclusionDetails.excludedIOCs | union(vars.globalVariableIOCList) }}{% elif isGlobalEmpty %}{{ vars.exclusionDetails.excludedIOCs | union(vars.oldKeyStoreIOCList) }}{% else %}{{ vars.exclusionDetails.excludedIOCs | union(vars.globalVariableIOCList) | union(vars.oldKeyStoreIOCList) }}{% endif %}"
+                "consolidatedIOCList": "{% set isGlobalEmpty = vars.globalVariableIOCList | length == 1 and vars.globalVariableIOCList[0] | length == 0 %}{% set isOldKeyStoreEmpty = vars.oldKeyStoreIOCList | length == 1 and vars.oldKeyStoreIOCList[0] | length == 0 %}{% if isGlobalEmpty and isOldKeyStoreEmpty %}{{ vars.exclusionDetails.excludedIOCs }}{% elif isOldKeyStoreEmpty %}{{ vars.exclusionDetails.excludedIOCs + vars.globalVariableIOCList }}{% elif isGlobalEmpty %}{{ vars.exclusionDetails.excludedIOCs + vars.oldKeyStoreIOCList }}{% else %}{{ vars.exclusionDetails.excludedIOCs + vars.globalVariableIOCList + vars.oldKeyStoreIOCList }}{% endif %}"
             },
             "status": null,
             "top": "705",
@@ -39,6 +39,7 @@
             "arguments": {
                 "indicatorType": "{{vars.input.params['exclusion_details'][0]}}",
                 "exclusionDetails": "{{vars.input.params['exclusion_details'][1]}}",
+                "uniqueExclusionList": "[]",
                 "iocToKeystoreMapping": "{\n    \"IP Address\": \"sfsp-excludelist-ips\",\n    \"URL\": \"sfsp-excludelist-urls\",\n    \"Domain\": \"sfsp-excludelist-domains\",\n    \"Port\": \"sfsp-excludelist-ports\",\n    \"File\": \"sfsp-excludelist-files\",\n    \"CIDR Range\": \"sfsp-excludelist-cidr-ranges\"\n}"
             },
             "status": null,
@@ -152,6 +153,20 @@
         },
         {
             "@type": "WorkflowStep",
+            "name": "Remove Duplicates",
+            "description": null,
+            "arguments": {
+                "_temp": "{% for item in vars.consolidatedIOCList %}{% if item not in vars.uniqueExclusionList %}{% do vars.uniqueExclusionList.append(item) %}{% endif %}{% endfor %}"
+            },
+            "status": null,
+            "top": "840",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "ab8f1322-145b-440e-9fd1-25dc707b4f6a"
+        },
+        {
+            "@type": "WorkflowStep",
             "name": "Start",
             "description": null,
             "arguments": {
@@ -177,10 +192,10 @@
             "description": null,
             "arguments": {
                 "indicatorType": "{{vars.indicatorType}}",
-                "exclusionDetails": "{% set _temp = vars.exclusionDetails %}\n{% do _temp.update({'excludedIOCs': vars.consolidatedIOCList, 'migratedFromGlobalVariable': true}) %}\n{{_temp}}"
+                "exclusionDetails": "{% set _temp = vars.exclusionDetails %}\n{% do _temp.update({'excludedIOCs': vars.uniqueExclusionList, 'migratedFromGlobalVariable': true}) %}\n{{_temp}}"
             },
             "status": null,
-            "top": "840",
+            "top": "975",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
             "group": null,
@@ -205,13 +220,13 @@
     "routes": [
         {
             "@type": "WorkflowRoute",
-            "name": "Compute Migration IOC List -> Updated Exclusion List",
-            "targetStep": "\/api\/3\/workflow_steps\/ab51e2b1-81ef-4e26-99bf-bb3bd2963f74",
+            "name": "Compute Migration IOC List -> Remove Duplicates",
+            "targetStep": "\/api\/3\/workflow_steps\/ab8f1322-145b-440e-9fd1-25dc707b4f6a",
             "sourceStep": "\/api\/3\/workflow_steps\/0f28a099-7c91-4850-8d39-ac0ef0649026",
             "label": null,
             "isExecuted": false,
             "group": null,
-            "uuid": "8acc5b58-c8b1-4257-9b33-cba1e0475f06"
+            "uuid": "508f286e-29a7-4056-9a05-53b5755235d8"
         },
         {
             "@type": "WorkflowRoute",
@@ -272,6 +287,16 @@
             "isExecuted": false,
             "group": null,
             "uuid": "7b1b8a69-76eb-4fc1-8e88-e7cf1b9d4180"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Remove Duplicates -> Updated Exclusion List",
+            "targetStep": "\/api\/3\/workflow_steps\/ab51e2b1-81ef-4e26-99bf-bb3bd2963f74",
+            "sourceStep": "\/api\/3\/workflow_steps\/ab8f1322-145b-440e-9fd1-25dc707b4f6a",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "d5296fff-a793-4089-a4f6-8e24ced2fcca"
         },
         {
             "@type": "WorkflowRoute",
