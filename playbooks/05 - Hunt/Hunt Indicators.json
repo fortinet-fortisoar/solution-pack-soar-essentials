@@ -27,34 +27,8 @@
             "top": "165",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
             "uuid": "d5c05a70-09df-49ec-bfef-57986cc28e39"
-        },
-        {
-            "@type": "WorkflowStep",
-            "name": "Hunt Files",
-            "description": null,
-            "arguments": {
-                "name": "CarbonBlack Protection Bit9",
-                "config": "927e907d-3ce7-48e9-9e39-84b6746ae269",
-                "params": {
-                    "file_hash": "{{vars.item}}"
-                },
-                "version": "1.0.2",
-                "for_each": {
-                    "item": "{{vars.steps.Extract_Indicators_from_Input.data.SHA256}}",
-                    "condition": ""
-                },
-                "connector": "carbonblack-protect-bit9",
-                "operation": "hunt_file",
-                "ignore_errors": true,
-                "operationTitle": "Hunt File",
-                "step_variables": []
-            },
-            "status": null,
-            "top": "435",
-            "left": "125",
-            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "37206059-39ef-4374-9106-5ea99a081128"
         },
         {
             "@type": "WorkflowStep",
@@ -65,14 +39,14 @@
                 "params": {
                     "data": "{{vars.input.params.indicators}}",
                     "whitelist": "",
-                    "case_sensitive": "",
-                    "override_regex": "",
-                    "private_whitelist": ""
+                    "case_sensitive": false,
+                    "private_whitelist": false,
+                    "extract_defang_indicators": false
                 },
-                "version": "3.0.3",
+                "version": "3.5.0",
                 "connector": "cyops_utilities",
-                "operation": "extract_artifacts",
-                "operationTitle": "CyOPs: Extract Artifacts from string",
+                "operation": "extract_artifacts_new",
+                "operationTitle": "FSR: Extract Artifacts from String",
                 "step_variables": {
                     "addIpIndicator": "{% for dict in vars.result.data.IP %}{{vars.IndicatorsList.append({\"value\":dict,\"type\":\"IndicatorType\" | picklist(\"IP Address\",\"@id\")})}}{% endfor %}",
                     "addMD5Indicator": "{% for dict in vars.result.data.MD5 %}{{vars.IndicatorsList.append({\"value\":dict,\"type\":\"IndicatorType\" | picklist(\"FileHash-MD5\",\"@id\")})}}{% endfor %}",
@@ -88,40 +62,8 @@
             "top": "300",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "group": null,
             "uuid": "140dbace-d425-4f88-a845-dadaef9dc9f5"
-        },
-        {
-            "@type": "WorkflowStep",
-            "name": "Hunt IP address",
-            "description": null,
-            "arguments": {
-                "name": "ElasticSearch",
-                "config": "d5f437b6-6d8e-4b29-a759-71e69e3c1e77",
-                "params": {
-                    "type": "",
-                    "index": "",
-                    "query": "{{vars.item}}",
-                    "routing": "",
-                    "doc_type": "",
-                    "run_as_user": ""
-                },
-                "version": "2.2.1",
-                "for_each": {
-                    "item": "{{vars.steps.Extract_Indicators_from_Input.data.IP}}",
-                    "condition": ""
-                },
-                "connector": "elasticsearch",
-                "operation": "execute_query",
-                "mock_result": "{\n  \"data\": {\n    \"hits\": {\n      \"hits\": [\n        {\n          \"_id\": \"1r9wuGsBt8nuALoCthN7\",\n          \"_type\": \"doc\",\n          \"_index\": \"logstash-beats\",\n          \"_score\": 4.575364,\n          \"_source\": {\n            \"beat\": {\n              \"name\": \"admin-PC2\",\n              \"version\": \"6.5.3\",\n              \"hostname\": \"admin-PC2\"\n            },\n            \"tags\": [\n              \"beat\",\n              \"beats_input_codec_plain_applied\"\n            ],\n            \"task\": \"Outbound Connection (rule: OutboundConnectionCreate)\",\n            \"user\": {\n              \"name\": \"SYSTEM\",\n              \"type\": \"User\",\n              \"domain\": \"NT AUTHORITY\",\n              \"identifier\": \"S-1-5-18\"\n            },\n            \"level\": \"Information\",\n            \"opcode\": \"Info\",\n            \"message\": \"Process Create:\\nRuleName: \\nUtcTime: 2019-07-03 15:25:20.938\\nProcessGuid: {BAECEEB0-C8E0-5D1C-0000-0010A803D004}\\nProcessId: 3808\\nImage: C:\\\\Windows\\\\System32\\\\calc.exe\\nFileVersion: 6.1.7600.16385 (win7_rtm.090713-1255)\\nDescription: Windows Calculator\\nProduct: Microsoft\u00ae Windows\u00ae Operating System\\nCompany: Microsoft Corporation\\nCommandLine: \\\"C:\\\\Windows\\\\System32\\\\calc.exe\\\" \\nCurrentDirectory: C:\\\\Users\\\\superman\\\\Desktop\\\\Release\\\\\\nUser: CYBERCOM\\\\superman\\nLogonGuid: {BAECEEB0-784A-5D1A-0000-0020BA5C0D00}\\nLogonId: 0xd5cba\\nTerminalSessionId: 1\\nIntegrityLevel: High\\nHashes: MD5=10E4A1D2132CCB5C6759F038CDB6F3C9,SHA256=C6A91CBA00BF87CDB064C49ADAAC82255CBEC6FDD48FD21F9B3B96ABF019916B\\nParentProcessGuid: {BAECEEB0-C8E0-5D1C-0000-0010EDE9CF04}\\nParentProcessId: 3400\\nParentImage: C:\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\v4.0.30319\\\\RegAsm.exe\\nParentCommandLine: C:\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\v4.0.30319\\\\RegAsm.exe  C:\\\\Users\\\\superman\\\\Desktop\\\\Release\\\\AllTheThings.dll\\nConnection open to 43.225.46.25\\nConnection open to 162.241.216.113\\nport 8080\\\\NAT IP Address 162.241.216.113\",\n            \"version\": 5,\n            \"@version\": \"1\",\n            \"event_id\": 1,\n            \"log_name\": \"Microsoft-Windows-Sysmon\/Operational\",\n            \"username\": \"CYBERCOM\\\\superman\",\n            \"beat_host\": {\n              \"id\": \"baeceeb0-040c-498f-84c9-610d57bc902d\",\n              \"os\": {\n                \"build\": \"7601.0\",\n                \"family\": \"windows\",\n                \"version\": \"6.1\",\n                \"platform\": \"windows\"\n              },\n              \"name\": \"admin-PC2\",\n              \"architecture\": \"x86_64\"\n            },\n            \"thread_id\": 1816,\n            \"@timestamp\": \"2019-07-03T15:25:21.192Z\",\n            \"event_data\": {\n              \"Hashes\": \"MD5=10E4A1D2132CCB5C6759F038CDB6F3C9,SHA256=C6A91CBA00BF87CDB064C49ADAAC82255CBEC6FDD48FD21F9B3B96ABF019916B\",\n              \"Company\": \"Microsoft Corporation\",\n              \"LogonId\": \"0xd5cba\",\n              \"Product\": \"Microsoft\u00ae Windows\u00ae Operating System\",\n              \"UtcTime\": \"2019-07-03 15:25:20.938\",\n              \"LogonGuid\": \"{BAECEEB0-784A-5D1A-0000-0020BA5C0D00}\",\n              \"ProcessId\": \"3808\",\n              \"CommandLine\": \"\\\"C:\\\\Windows\\\\System32\\\\calc.exe\\\" \",\n              \"Description\": \"Windows Calculator\",\n              \"FileVersion\": \"6.1.7600.16385 (win7_rtm.090713-1255)\",\n              \"ProcessGuid\": \"{BAECEEB0-C8E0-5D1C-0000-0010A803D004}\",\n              \"IntegrityLevel\": \"High\",\n              \"ParentProcessId\": \"3400\",\n              \"CurrentDirectory\": \"C:\\\\Users\\\\superman\\\\Desktop\\\\Release\\\\\",\n              \"ParentCommandLine\": \"C:\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\v4.0.30319\\\\RegAsm.exe  C:\\\\Users\\\\superman\\\\Desktop\\\\Release\\\\AllTheThings.dll\",\n              \"ParentProcessGuid\": \"{BAECEEB0-C8E0-5D1C-0000-0010EDE9CF04}\",\n              \"TerminalSessionId\": \"1\"\n            },\n            \"event_type\": \"sysmon\",\n            \"image_path\": \"C:\\\\Windows\\\\System32\\\\calc.exe\",\n            \"process_id\": 1460,\n            \"source_name\": \"Microsoft-Windows-Sysmon\",\n            \"computer_name\": \"admin-PC2.cybercom.local\",\n            \"logstash_time\": 0.009769916534423828,\n            \"provider_guid\": \"{5770385F-C22A-43E0-BF4C-06F5698FFBD9}\",\n            \"record_number\": \"189777\",\n            \"parent_image_path\": \"C:\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\v4.0.30319\\\\RegAsm.exe\"\n          }\n        }\n      ],\n      \"total\": {\n        \"value\": 1,\n        \"relation\": \"eq\"\n      },\n      \"max_score\": 4.575364\n    },\n    \"took\": 724,\n    \"_shards\": {\n      \"total\": 95,\n      \"failed\": 0,\n      \"skipped\": 0,\n      \"successful\": 95\n    },\n    \"timed_out\": false\n  }\n}",
-                "ignore_errors": true,
-                "operationTitle": "Execute Query",
-                "step_variables": []
-            },
-            "status": null,
-            "top": "435",
-            "left": "825",
-            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "1126dcbd-81ad-4655-b914-6ce340a107e8"
         },
         {
             "@type": "WorkflowStep",
@@ -190,7 +132,70 @@
             "top": "435",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "group": null,
             "uuid": "506a2701-f72f-48b6-8b87-cfbfa0fab821"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Hunt Files",
+            "description": null,
+            "arguments": {
+                "name": "CarbonBlack Protection Bit9",
+                "config": "927e907d-3ce7-48e9-9e39-84b6746ae269",
+                "params": {
+                    "file_hash": "{{vars.item}}"
+                },
+                "version": "1.0.2",
+                "for_each": {
+                    "item": "{{vars.steps.Extract_Indicators_from_Input.data.SHA256}}",
+                    "condition": ""
+                },
+                "connector": "carbonblack-protect-bit9",
+                "operation": "hunt_file",
+                "ignore_errors": true,
+                "operationTitle": "Hunt File",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "group": null,
+            "uuid": "37206059-39ef-4374-9106-5ea99a081128"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Hunt IP address",
+            "description": null,
+            "arguments": {
+                "name": "ElasticSearch",
+                "config": "d5f437b6-6d8e-4b29-a759-71e69e3c1e77",
+                "params": {
+                    "type": "",
+                    "index": "",
+                    "query": "{{vars.item}}",
+                    "routing": "",
+                    "doc_type": "",
+                    "run_as_user": ""
+                },
+                "version": "2.2.1",
+                "for_each": {
+                    "item": "{{vars.steps.Extract_Indicators_from_Input.data.IP}}",
+                    "condition": ""
+                },
+                "connector": "elasticsearch",
+                "operation": "execute_query",
+                "mock_result": "{\n  \"data\": {\n    \"hits\": {\n      \"hits\": [\n        {\n          \"_id\": \"1r9wuGsBt8nuALoCthN7\",\n          \"_type\": \"doc\",\n          \"_index\": \"logstash-beats\",\n          \"_score\": 4.575364,\n          \"_source\": {\n            \"beat\": {\n              \"name\": \"admin-PC2\",\n              \"version\": \"6.5.3\",\n              \"hostname\": \"admin-PC2\"\n            },\n            \"tags\": [\n              \"beat\",\n              \"beats_input_codec_plain_applied\"\n            ],\n            \"task\": \"Outbound Connection (rule: OutboundConnectionCreate)\",\n            \"user\": {\n              \"name\": \"SYSTEM\",\n              \"type\": \"User\",\n              \"domain\": \"NT AUTHORITY\",\n              \"identifier\": \"S-1-5-18\"\n            },\n            \"level\": \"Information\",\n            \"opcode\": \"Info\",\n            \"message\": \"Process Create:\\nRuleName: \\nUtcTime: 2019-07-03 15:25:20.938\\nProcessGuid: {BAECEEB0-C8E0-5D1C-0000-0010A803D004}\\nProcessId: 3808\\nImage: C:\\\\Windows\\\\System32\\\\calc.exe\\nFileVersion: 6.1.7600.16385 (win7_rtm.090713-1255)\\nDescription: Windows Calculator\\nProduct: Microsoft\u00ae Windows\u00ae Operating System\\nCompany: Microsoft Corporation\\nCommandLine: \\\"C:\\\\Windows\\\\System32\\\\calc.exe\\\" \\nCurrentDirectory: C:\\\\Users\\\\superman\\\\Desktop\\\\Release\\\\\\nUser: CYBERCOM\\\\superman\\nLogonGuid: {BAECEEB0-784A-5D1A-0000-0020BA5C0D00}\\nLogonId: 0xd5cba\\nTerminalSessionId: 1\\nIntegrityLevel: High\\nHashes: MD5=10E4A1D2132CCB5C6759F038CDB6F3C9,SHA256=C6A91CBA00BF87CDB064C49ADAAC82255CBEC6FDD48FD21F9B3B96ABF019916B\\nParentProcessGuid: {BAECEEB0-C8E0-5D1C-0000-0010EDE9CF04}\\nParentProcessId: 3400\\nParentImage: C:\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\v4.0.30319\\\\RegAsm.exe\\nParentCommandLine: C:\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\v4.0.30319\\\\RegAsm.exe  C:\\\\Users\\\\superman\\\\Desktop\\\\Release\\\\AllTheThings.dll\\nConnection open to 43.225.46.25\\nConnection open to 162.241.216.113\\nport 8080\\\\NAT IP Address 162.241.216.113\",\n            \"version\": 5,\n            \"@version\": \"1\",\n            \"event_id\": 1,\n            \"log_name\": \"Microsoft-Windows-Sysmon\/Operational\",\n            \"username\": \"CYBERCOM\\\\superman\",\n            \"beat_host\": {\n              \"id\": \"baeceeb0-040c-498f-84c9-610d57bc902d\",\n              \"os\": {\n                \"build\": \"7601.0\",\n                \"family\": \"windows\",\n                \"version\": \"6.1\",\n                \"platform\": \"windows\"\n              },\n              \"name\": \"admin-PC2\",\n              \"architecture\": \"x86_64\"\n            },\n            \"thread_id\": 1816,\n            \"@timestamp\": \"2019-07-03T15:25:21.192Z\",\n            \"event_data\": {\n              \"Hashes\": \"MD5=10E4A1D2132CCB5C6759F038CDB6F3C9,SHA256=C6A91CBA00BF87CDB064C49ADAAC82255CBEC6FDD48FD21F9B3B96ABF019916B\",\n              \"Company\": \"Microsoft Corporation\",\n              \"LogonId\": \"0xd5cba\",\n              \"Product\": \"Microsoft\u00ae Windows\u00ae Operating System\",\n              \"UtcTime\": \"2019-07-03 15:25:20.938\",\n              \"LogonGuid\": \"{BAECEEB0-784A-5D1A-0000-0020BA5C0D00}\",\n              \"ProcessId\": \"3808\",\n              \"CommandLine\": \"\\\"C:\\\\Windows\\\\System32\\\\calc.exe\\\" \",\n              \"Description\": \"Windows Calculator\",\n              \"FileVersion\": \"6.1.7600.16385 (win7_rtm.090713-1255)\",\n              \"ProcessGuid\": \"{BAECEEB0-C8E0-5D1C-0000-0010A803D004}\",\n              \"IntegrityLevel\": \"High\",\n              \"ParentProcessId\": \"3400\",\n              \"CurrentDirectory\": \"C:\\\\Users\\\\superman\\\\Desktop\\\\Release\\\\\",\n              \"ParentCommandLine\": \"C:\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\v4.0.30319\\\\RegAsm.exe  C:\\\\Users\\\\superman\\\\Desktop\\\\Release\\\\AllTheThings.dll\",\n              \"ParentProcessGuid\": \"{BAECEEB0-C8E0-5D1C-0000-0010EDE9CF04}\",\n              \"TerminalSessionId\": \"1\"\n            },\n            \"event_type\": \"sysmon\",\n            \"image_path\": \"C:\\\\Windows\\\\System32\\\\calc.exe\",\n            \"process_id\": 1460,\n            \"source_name\": \"Microsoft-Windows-Sysmon\",\n            \"computer_name\": \"admin-PC2.cybercom.local\",\n            \"logstash_time\": 0.009769916534423828,\n            \"provider_guid\": \"{5770385F-C22A-43E0-BF4C-06F5698FFBD9}\",\n            \"record_number\": \"189777\",\n            \"parent_image_path\": \"C:\\\\Windows\\\\Microsoft.NET\\\\Framework64\\\\v4.0.30319\\\\RegAsm.exe\"\n          }\n        }\n      ],\n      \"total\": {\n        \"value\": 1,\n        \"relation\": \"eq\"\n      },\n      \"max_score\": 4.575364\n    },\n    \"took\": 724,\n    \"_shards\": {\n      \"total\": 95,\n      \"failed\": 0,\n      \"skipped\": 0,\n      \"successful\": 95\n    },\n    \"timed_out\": false\n  }\n}",
+                "ignore_errors": true,
+                "operationTitle": "Execute Query",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "825",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "group": null,
+            "uuid": "1126dcbd-81ad-4655-b914-6ce340a107e8"
         },
         {
             "@type": "WorkflowStep",
@@ -247,18 +252,20 @@
             "top": "30",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "group": null,
             "uuid": "f9a998a6-eb22-4126-93ff-9209bd1c4093"
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
-            "name": "Extract Indicators from Input -> Hunt IP address",
-            "targetStep": "\/api\/3\/workflow_steps\/1126dcbd-81ad-4655-b914-6ce340a107e8",
-            "sourceStep": "\/api\/3\/workflow_steps\/140dbace-d425-4f88-a845-dadaef9dc9f5",
+            "name": "Configuration -> Extract Indicators from Header",
+            "targetStep": "\/api\/3\/workflow_steps\/140dbace-d425-4f88-a845-dadaef9dc9f5",
+            "sourceStep": "\/api\/3\/workflow_steps\/d5c05a70-09df-49ec-bfef-57986cc28e39",
             "label": null,
             "isExecuted": false,
-            "uuid": "9f4ce5c0-115a-4e94-9d5f-69e47e815e43"
+            "group": null,
+            "uuid": "c71a1d25-39d6-4345-b22c-d39f0db04b05"
         },
         {
             "@type": "WorkflowRoute",
@@ -267,16 +274,8 @@
             "sourceStep": "\/api\/3\/workflow_steps\/140dbace-d425-4f88-a845-dadaef9dc9f5",
             "label": null,
             "isExecuted": false,
+            "group": null,
             "uuid": "5f6a8eb8-f5fe-4e35-86b2-ed1b3a0d0108"
-        },
-        {
-            "@type": "WorkflowRoute",
-            "name": "Configuration -> Extract Indicators from Header",
-            "targetStep": "\/api\/3\/workflow_steps\/140dbace-d425-4f88-a845-dadaef9dc9f5",
-            "sourceStep": "\/api\/3\/workflow_steps\/d5c05a70-09df-49ec-bfef-57986cc28e39",
-            "label": null,
-            "isExecuted": false,
-            "uuid": "c71a1d25-39d6-4345-b22c-d39f0db04b05"
         },
         {
             "@type": "WorkflowRoute",
@@ -285,7 +284,18 @@
             "sourceStep": "\/api\/3\/workflow_steps\/140dbace-d425-4f88-a845-dadaef9dc9f5",
             "label": null,
             "isExecuted": false,
+            "group": null,
             "uuid": "37239652-5894-464c-86f8-6e1abf0973f7"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Extract Indicators from Input -> Hunt IP address",
+            "targetStep": "\/api\/3\/workflow_steps\/1126dcbd-81ad-4655-b914-6ce340a107e8",
+            "sourceStep": "\/api\/3\/workflow_steps\/140dbace-d425-4f88-a845-dadaef9dc9f5",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "9f4ce5c0-115a-4e94-9d5f-69e47e815e43"
         },
         {
             "@type": "WorkflowRoute",
@@ -294,16 +304,18 @@
             "sourceStep": "\/api\/3\/workflow_steps\/f9a998a6-eb22-4126-93ff-9209bd1c4093",
             "label": null,
             "isExecuted": false,
+            "group": null,
             "uuid": "87469b50-4071-4993-8a10-ad161a5aadb4"
         }
     ],
+    "groups": [],
     "priority": null,
     "uuid": "0d0a1c8b-2c22-48f6-9bde-0333fa212138",
     "owners": [],
     "isPrivate": false,
     "deletedAt": null,
     "recordTags": [
-        "ManualAction",
-        "Hunt"
+        "Hunt",
+        "ManualAction"
     ]
 }
