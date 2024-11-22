@@ -39,6 +39,7 @@
             "arguments": {
                 "indicatorType": "{{vars.input.params['exclusion_details'][0]}}",
                 "exclusionDetails": "{{vars.input.params['exclusion_details'][1]}}",
+                "oldKeyStoreIOCList": "[]",
                 "uniqueExclusionList": "[]",
                 "iocToKeystoreMapping": "{\n    \"IP Address\": \"sfsp-excludelist-ips\",\n    \"URL\": \"sfsp-excludelist-urls\",\n    \"Domain\": \"sfsp-excludelist-domains\",\n    \"Port\": \"sfsp-excludelist-ports\",\n    \"File\": \"sfsp-excludelist-files\",\n    \"CIDR Range\": \"sfsp-excludelist-cidr-ranges\"\n}"
             },
@@ -113,7 +114,7 @@
                 "module": "keys?$limit=30",
                 "checkboxFields": true,
                 "step_variables": {
-                    "oldKeyStoreIOCList": "{% if vars.steps.Get_Old_Keystore_IOC_List %}{{vars.steps.Get_Old_Keystore_IOC_List[0].jSONValue}}{% else%}[]{% endif %}"
+                    "oldKeyStoreIOCList": "{% if vars.steps.Get_Old_Keystore_IOC_List[0].jSONValue | length > 0 %}{{vars.steps.Get_Old_Keystore_IOC_List[0].jSONValue}}{% else%}[]{% endif %}"
                 }
             },
             "status": null,
