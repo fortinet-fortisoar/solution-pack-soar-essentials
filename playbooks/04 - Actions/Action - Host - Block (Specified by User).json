@@ -35,6 +35,7 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "group": null,
             "uuid": "c93fa9e3-c823-4cfb-938b-e0ee5b8ec592"
         },
         {
@@ -69,7 +70,30 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "group": null,
             "uuid": "ade6fa1c-c46f-4771-9356-9f91e437a86f"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Link Indicator On Triggered Record",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "{{vars.input.records[0]['@id']}}",
+                    "body": "{\"__link\":{\"indicators\":[\"{{vars.result['@id']}}\"]}}"
+                },
+                "version": "3.0.4",
+                "connector": "cyops_utilities",
+                "operation": "update_cyops_resource",
+                "operationTitle": "CyOPs: Update Record",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "group": null,
+            "uuid": "987bd95b-5e9b-4cb4-9b18-7819e9b853eb"
         },
         {
             "@type": "WorkflowStep",
@@ -146,31 +170,21 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "group": null,
             "uuid": "400244bc-65c3-4cc9-8252-1b22f63783f7"
-        },
-        {
-            "@type": "WorkflowStep",
-            "name": "Link Indicator On Triggered Record",
-            "description": null,
-            "arguments": {
-                "params": {
-                    "iri": "{{vars.input.records[0]['@id']}}",
-                    "body": "{\"__link\":{\"indicators\":[\"{{vars.result['@id']}}\"]}}"
-                },
-                "version": "3.0.4",
-                "connector": "cyops_utilities",
-                "operation": "update_cyops_resource",
-                "operationTitle": "CyOPs: Update Record",
-                "step_variables": []
-            },
-            "status": null,
-            "top": "435",
-            "left": "125",
-            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "987bd95b-5e9b-4cb4-9b18-7819e9b853eb"
         }
     ],
     "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Block IP Address -> Link Indicator On Triggered Record",
+            "targetStep": "\/api\/3\/workflow_steps\/987bd95b-5e9b-4cb4-9b18-7819e9b853eb",
+            "sourceStep": "\/api\/3\/workflow_steps\/c93fa9e3-c823-4cfb-938b-e0ee5b8ec592",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "ac9ddc7d-cd39-4f0f-a86a-947d890e1a46"
+        },
         {
             "@type": "WorkflowRoute",
             "name": "Create IP Indicator _ Deduplicated -> Unblock IP Address",
@@ -178,6 +192,7 @@
             "sourceStep": "\/api\/3\/workflow_steps\/ade6fa1c-c46f-4771-9356-9f91e437a86f",
             "label": null,
             "isExecuted": false,
+            "group": null,
             "uuid": "7d82f12f-afc4-48d0-9e2d-ce0a339fc419"
         },
         {
@@ -187,19 +202,14 @@
             "sourceStep": "\/api\/3\/workflow_steps\/400244bc-65c3-4cc9-8252-1b22f63783f7",
             "label": null,
             "isExecuted": false,
+            "group": null,
             "uuid": "03a913de-b4c7-452f-9ff3-16421e05376f"
-        },
-        {
-            "@type": "WorkflowRoute",
-            "name": "Block IP Address -> Link Indicator On Triggered Record",
-            "targetStep": "\/api\/3\/workflow_steps\/987bd95b-5e9b-4cb4-9b18-7819e9b853eb",
-            "sourceStep": "\/api\/3\/workflow_steps\/c93fa9e3-c823-4cfb-938b-e0ee5b8ec592",
-            "label": null,
-            "isExecuted": false,
-            "uuid": "ac9ddc7d-cd39-4f0f-a86a-947d890e1a46"
         }
     ],
+    "groups": [],
     "priority": null,
+    "playbookOrigin": "\/api\/3\/picklists\/b6d710a9-a8ec-41ec-8817-fe9fa062fcdd",
+    "isEditable": true,
     "uuid": "7d6f79c0-9054-402d-abff-2438200ce805",
     "owners": [],
     "isPrivate": false,

@@ -17,27 +17,6 @@
     "steps": [
         {
             "@type": "WorkflowStep",
-            "name": "Link Indicator On Triggered Record",
-            "description": null,
-            "arguments": {
-                "params": {
-                    "iri": "{{vars.input.records[0]['@id']}}",
-                    "body": "{\"__link\":{\"indicators\":[\"{{vars.result['@id']}}\"]}}"
-                },
-                "version": "3.0.4",
-                "connector": "cyops_utilities",
-                "operation": "update_cyops_resource",
-                "operationTitle": "CyOPs: Update Record",
-                "step_variables": []
-            },
-            "status": null,
-            "top": "434",
-            "left": "120",
-            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "bad66c19-1336-43df-a01b-52c6c650855d"
-        },
-        {
-            "@type": "WorkflowStep",
             "name": "Create IP Indicator _ Deduplicated",
             "description": null,
             "arguments": {
@@ -68,7 +47,30 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "group": null,
             "uuid": "70ccdeed-fad5-4d43-9722-2a729da45278"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Link Indicator On Triggered Record",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "{{vars.input.records[0]['@id']}}",
+                    "body": "{\"__link\":{\"indicators\":[\"{{vars.result['@id']}}\"]}}"
+                },
+                "version": "3.0.4",
+                "connector": "cyops_utilities",
+                "operation": "update_cyops_resource",
+                "operationTitle": "CyOPs: Update Record",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "434",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "group": null,
+            "uuid": "bad66c19-1336-43df-a01b-52c6c650855d"
         },
         {
             "@type": "WorkflowStep",
@@ -145,6 +147,7 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "group": null,
             "uuid": "d7598915-6f13-4e84-85e0-5d38fc9e3990"
         },
         {
@@ -167,10 +170,21 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "group": null,
             "uuid": "dda1932b-585f-4cb9-8e76-c28d36914757"
         }
     ],
     "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Block IP Address -> Link Indicator On Triggered Record",
+            "targetStep": "\/api\/3\/workflow_steps\/bad66c19-1336-43df-a01b-52c6c650855d",
+            "sourceStep": "\/api\/3\/workflow_steps\/dda1932b-585f-4cb9-8e76-c28d36914757",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "31458406-2dbf-490e-9ea5-c81b4d69a38a"
+        },
         {
             "@type": "WorkflowRoute",
             "name": "Create IP Indicator _ Deduplicated -> Unblock IP Address",
@@ -178,6 +192,7 @@
             "sourceStep": "\/api\/3\/workflow_steps\/70ccdeed-fad5-4d43-9722-2a729da45278",
             "label": null,
             "isExecuted": false,
+            "group": null,
             "uuid": "024a451e-0348-4fc9-9d4e-9042797a3b9c"
         },
         {
@@ -187,19 +202,14 @@
             "sourceStep": "\/api\/3\/workflow_steps\/d7598915-6f13-4e84-85e0-5d38fc9e3990",
             "label": null,
             "isExecuted": false,
+            "group": null,
             "uuid": "b0e2da28-0adf-499d-bd56-cd7b04f052d0"
-        },
-        {
-            "@type": "WorkflowRoute",
-            "name": "Block IP Address -> Link Indicator On Triggered Record",
-            "targetStep": "\/api\/3\/workflow_steps\/bad66c19-1336-43df-a01b-52c6c650855d",
-            "sourceStep": "\/api\/3\/workflow_steps\/dda1932b-585f-4cb9-8e76-c28d36914757",
-            "label": null,
-            "isExecuted": false,
-            "uuid": "31458406-2dbf-490e-9ea5-c81b4d69a38a"
         }
     ],
+    "groups": [],
     "priority": null,
+    "playbookOrigin": "\/api\/3\/picklists\/b6d710a9-a8ec-41ec-8817-fe9fa062fcdd",
+    "isEditable": true,
     "uuid": "e2be93ff-8405-475f-a24a-abd1282ada9a",
     "owners": [],
     "isPrivate": false,
