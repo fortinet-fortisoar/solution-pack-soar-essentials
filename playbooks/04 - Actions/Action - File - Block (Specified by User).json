@@ -17,27 +17,6 @@
     "steps": [
         {
             "@type": "WorkflowStep",
-            "name": "Link Indicator On Triggered Record",
-            "description": null,
-            "arguments": {
-                "params": {
-                    "iri": "{{vars.input.records[0]['@id']}}",
-                    "body": "{\"__link\":{\"indicators\":[\"{{vars.result['@id']}}\"]}}"
-                },
-                "version": "3.0.4",
-                "connector": "cyops_utilities",
-                "operation": "update_cyops_resource",
-                "operationTitle": "CyOPs: Update Record",
-                "step_variables": []
-            },
-            "status": null,
-            "top": "435",
-            "left": "125",
-            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "4bd9330d-7c46-48b5-a34c-1a0f75a3b52f"
-        },
-        {
-            "@type": "WorkflowStep",
             "name": "Block Email Address",
             "description": null,
             "arguments": {
@@ -56,7 +35,66 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "group": null,
             "uuid": "0b62fd31-4499-4117-8a99-0a50d0b3066c"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Domain Indicator _ Deduplicated",
+            "description": null,
+            "arguments": {
+                "resource": {
+                    "file": "{{vars.input.params.filePath}}",
+                    "value": "{{vars.input.params.fileName}}",
+                    "__replace": "true",
+                    "typeofindicator": {
+                        "id": 73,
+                        "@id": "\/api\/3\/picklists\/0162241b-f5bf-4917-a150-00e920be47bd",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "File",
+                        "listName": "\/api\/3\/picklist_names\/50ee5bfa-e18f-49ba-8af9-dcca25b0f9c0",
+                        "itemValue": "File",
+                        "orderIndex": 3
+                    }
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "group": null,
+            "uuid": "b18c830d-f789-4f2c-b302-1418c0c9edbf"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Link Indicator On Triggered Record",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "{{vars.input.records[0]['@id']}}",
+                    "body": "{\"__link\":{\"indicators\":[\"{{vars.result['@id']}}\"]}}"
+                },
+                "version": "3.0.4",
+                "connector": "cyops_utilities",
+                "operation": "update_cyops_resource",
+                "operationTitle": "CyOPs: Update Record",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "group": null,
+            "uuid": "4bd9330d-7c46-48b5-a34c-1a0f75a3b52f"
         },
         {
             "@type": "WorkflowStep",
@@ -158,53 +196,20 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "group": null,
             "uuid": "e134acd2-19df-433b-ae6e-7f94b2b96a4e"
-        },
-        {
-            "@type": "WorkflowStep",
-            "name": "Create Domain Indicator _ Deduplicated",
-            "description": null,
-            "arguments": {
-                "resource": {
-                    "file": "{{vars.input.params.filePath}}",
-                    "value": "{{vars.input.params.fileName}}",
-                    "__replace": "true",
-                    "typeofindicator": {
-                        "id": 73,
-                        "@id": "\/api\/3\/picklists\/0162241b-f5bf-4917-a150-00e920be47bd",
-                        "icon": null,
-                        "@type": "Picklist",
-                        "color": null,
-                        "display": "File",
-                        "listName": "\/api\/3\/picklist_names\/50ee5bfa-e18f-49ba-8af9-dcca25b0f9c0",
-                        "itemValue": "File",
-                        "orderIndex": 3
-                    }
-                },
-                "_showJson": false,
-                "operation": "Overwrite",
-                "collection": "\/api\/3\/upsert\/indicators",
-                "fieldOperation": {
-                    "recordTags": "Overwrite"
-                },
-                "step_variables": []
-            },
-            "status": null,
-            "top": "165",
-            "left": "125",
-            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
-            "uuid": "b18c830d-f789-4f2c-b302-1418c0c9edbf"
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
-            "name": "Start -> Create IP Indicator _ Deduplicated",
-            "targetStep": "\/api\/3\/workflow_steps\/b18c830d-f789-4f2c-b302-1418c0c9edbf",
-            "sourceStep": "\/api\/3\/workflow_steps\/e134acd2-19df-433b-ae6e-7f94b2b96a4e",
+            "name": "Block IP Address -> Link Indicator On Triggered Record",
+            "targetStep": "\/api\/3\/workflow_steps\/4bd9330d-7c46-48b5-a34c-1a0f75a3b52f",
+            "sourceStep": "\/api\/3\/workflow_steps\/0b62fd31-4499-4117-8a99-0a50d0b3066c",
             "label": null,
             "isExecuted": false,
-            "uuid": "cca1fb46-c042-4691-b261-bdec9f790b6e"
+            "group": null,
+            "uuid": "ec26f0d6-7950-486b-aa4e-ff226ba6362b"
         },
         {
             "@type": "WorkflowRoute",
@@ -213,19 +218,24 @@
             "sourceStep": "\/api\/3\/workflow_steps\/b18c830d-f789-4f2c-b302-1418c0c9edbf",
             "label": null,
             "isExecuted": false,
+            "group": null,
             "uuid": "a0164a97-dc6a-416f-b7fd-b168571d9150"
         },
         {
             "@type": "WorkflowRoute",
-            "name": "Block IP Address -> Link Indicator On Triggered Record",
-            "targetStep": "\/api\/3\/workflow_steps\/4bd9330d-7c46-48b5-a34c-1a0f75a3b52f",
-            "sourceStep": "\/api\/3\/workflow_steps\/0b62fd31-4499-4117-8a99-0a50d0b3066c",
+            "name": "Start -> Create IP Indicator _ Deduplicated",
+            "targetStep": "\/api\/3\/workflow_steps\/b18c830d-f789-4f2c-b302-1418c0c9edbf",
+            "sourceStep": "\/api\/3\/workflow_steps\/e134acd2-19df-433b-ae6e-7f94b2b96a4e",
             "label": null,
             "isExecuted": false,
-            "uuid": "ec26f0d6-7950-486b-aa4e-ff226ba6362b"
+            "group": null,
+            "uuid": "cca1fb46-c042-4691-b261-bdec9f790b6e"
         }
     ],
+    "groups": [],
     "priority": null,
+    "playbookOrigin": "\/api\/3\/picklists\/b6d710a9-a8ec-41ec-8817-fe9fa062fcdd",
+    "isEditable": true,
     "uuid": "448be7f4-1d08-4721-9da9-eb1bc5ead158",
     "owners": [],
     "isPrivate": false,
