@@ -1,16 +1,5 @@
 [
     {
-        "name": "carbonblack-response",
-        "label": "CarbonBlack Response",
-        "category": "Endpoint Protection",
-        "description": "CarbonBlack Response is purpose-built for enterprise SOC and IR teams.This connector facilitates automated operation related to endpoint protection like isolate endpoint, unisolate endpoint, hunt file, terminate process etc. with CarbonBlack Response server.",
-        "publisher": null,
-        "operation_roles": [],
-        "configurations": [],
-        "dataImports": [],
-        "install_mode": "rpm"
-    },
-    {
         "name": "exchange",
         "label": "Exchange",
         "category": "Email Server",
@@ -59,17 +48,6 @@
         "label": "Fortinet FortiGate",
         "category": "Firewall and Network Protection",
         "description": "Fortinet FortiGate enterprise firewall provide high performance, consolidated advanced security and granular visibility for broad protection across the entire digital attack surface.",
-        "publisher": null,
-        "operation_roles": [],
-        "configurations": [],
-        "dataImports": [],
-        "install_mode": "rpm"
-    },
-    {
-        "name": "microsoft-sccm",
-        "label": "Microsoft SCCM",
-        "category": "Windows Endpoint Management",
-        "description": "Microsoft SCCM Connector",
         "publisher": null,
         "operation_roles": [],
         "configurations": [],

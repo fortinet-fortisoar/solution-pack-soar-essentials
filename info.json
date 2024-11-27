@@ -574,10 +574,6 @@
         ],
         "connectors": [
             {
-                "name": "CarbonBlack Response",
-                "apiName": "carbonblack-response"
-            },
-            {
                 "name": "Exchange",
                 "apiName": "exchange"
             },
@@ -596,10 +592,6 @@
             {
                 "name": "Fortinet FortiGate",
                 "apiName": "fortigate-firewall"
-            },
-            {
-                "name": "Microsoft SCCM",
-                "apiName": "microsoft-sccm"
             },
             {
                 "name": "VirusTotal",
