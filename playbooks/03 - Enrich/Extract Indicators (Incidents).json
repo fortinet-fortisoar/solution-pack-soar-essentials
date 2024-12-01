@@ -57,7 +57,7 @@
                 "excluded_ports": "{{vars.steps.Get_Exclude_IOCs_List[0].jSONValue.Port.excludedIOCs}}",
                 "record_metadata": "{{vars.input.params.recordMetaData | ternary(vars.input.params.recordMetaData,vars.input.records[0])}}",
                 "record_field_iocs": "[]",
-                "indicator_type_map": "{{vars.steps.Get_Exclude_IOCs_List[0].jSONValue['Indicator Type Mapping'].fieldTypeMapping}}",
+                "indicator_type_map": "{{vars.steps.Get_Exclude_IOCs_List[0].jSONValue['Indicator Type Mapping'].fieldTypeMapping.incidents}}",
                 "excluded_indicators": "{{ vars.steps.Get_Exclude_IOCs_List[0].jSONValue | dict2items(key_name='type', value_name='jSONValue') | json_query(\"[?jSONValue. applyIOCExtractionFilter].jSONValue.excludedIOCs\") | flatten(levels=1) | map('lower') | list | unique }}",
                 "record_owners_iri_list": "{{ vars.input.params.recordMetaData.owners | ternary((vars.input.params.recordMetaData.owners | json_query('[].\"@id\"')),vars.input.records[0].owners)}}"
             },

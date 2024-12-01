@@ -89,7 +89,7 @@
                 "create_file_iocs": "{{vars.steps.Get_Exclude_IOCs_List[0].jSONValue['Indicator Type Mapping'].createFileIOCs}}",
                 "record_field_iocs": "[]",
                 "excluded_file_iocs": "{{vars.steps.Get_Exclude_IOCs_List[0].jSONValue.File.excludedIOCs | replace(\"*\", \"\") | replace(\" \", \"\")}}",
-                "indicator_type_map": "{{vars.steps.Get_Exclude_IOCs_List[0].jSONValue['Indicator Type Mapping'].fieldTypeMapping}}",
+                "indicator_type_map": "{{vars.steps.Get_Exclude_IOCs_List[0].jSONValue['Indicator Type Mapping'].fieldTypeMapping.alerts}}",
                 "excluded_indicators": "{{ vars.steps.Get_Exclude_IOCs_List[0].jSONValue | dict2items(key_name='type', value_name='jSONValue') | json_query(\"[?jSONValue. applyIOCExtractionFilter].jSONValue.excludedIOCs\") | flatten(levels=1) | map('lower') | list | unique }}",
                 "record_owners_iri_list": "{{ vars.input.params.recordMetaData.owners | ternary((vars.input.params.recordMetaData.owners | json_query('[].\"@id\"')),vars.input.records[0].owners)}}",
                 "add_excluded_file_comment": "{{vars.steps.Get_Exclude_IOCs_List[0].jSONValue['Indicator Type Mapping'].addExcludedFileComment}}"
