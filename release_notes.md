@@ -85,7 +85,7 @@ The following playbooks have been updated:
 
 ### Editable Playbooks Setting
 
-In FSR 7.6.1, the new "Is Editable" feature allows all playbooks in the "04 - Actions" collection to be edited directly by users. For playbooks outside this collection, users must make a copy to edit them, leaving the original playbook unchanged.
+In FSR 7.6.1, the new "Is Editable" feature lets users directly edit playbooks in the "04 - Actions" collection and the "06 - IRP - Case Management > Alert - Close Corresponding SIEM Alert" playbook. For other playbooks, users must make a copy to edit, keeping the original unchanged.
 
 
 ## Other Enhancements
