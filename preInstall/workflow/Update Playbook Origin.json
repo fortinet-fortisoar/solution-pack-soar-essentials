@@ -1,0 +1,116 @@
+{
+    "@context": "\/api\/3\/contexts\/Workflow",
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Update Playbook Origin",
+    "aliasName": null,
+    "tag": null,
+    "description": "This playbook updated playbook origin to \"Solution Pack\"",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "collection": "\/api\/3\/workflow_collections\/34294c8f-0f78-4961-990f-ec557250dde6",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/a106fd20-4b49-4bc7-a84e-c793825fb595",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "playbookIRIList": "[\"bff221c6-1a9b-4486-8180-6841e7a59f34\", \"b7cd4c27-6298-4093-9689-dfc7b26d0e7e\", \"60544219-bf3c-4212-b5b7-a088060fd503\"]"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "c4031f36-8309-44d8-8b5f-f80b5c2268fd"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "__triggerLimit": true,
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    }
+                },
+                "triggerOnSource": true,
+                "triggerOnReplicate": false
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "group": null,
+            "uuid": "a106fd20-4b49-4bc7-a84e-c793825fb595"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Playbook Origin",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/3\/workflows\/{{vars.item}}",
+                    "body": "{\n\"playbookOrigin\": \"\\\/api\\\/3\\\/picklists\\\/b6d710a9-a8ec-41ec-8817-fe9fa062fcdd\"\n}",
+                    "method": "PUT"
+                },
+                "version": "3.5.0",
+                "for_each": {
+                    "item": "{{vars.playbookIRIList}}",
+                    "parallel": false,
+                    "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "FSR: Make FortiSOAR API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "group": null,
+            "uuid": "b3ba337d-13d9-4f2d-95b0-497a8670d714"
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Update Playbook Origin",
+            "targetStep": "\/api\/3\/workflow_steps\/b3ba337d-13d9-4f2d-95b0-497a8670d714",
+            "sourceStep": "\/api\/3\/workflow_steps\/c4031f36-8309-44d8-8b5f-f80b5c2268fd",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "6a86236a-3305-440b-8baa-00043f497690"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/c4031f36-8309-44d8-8b5f-f80b5c2268fd",
+            "sourceStep": "\/api\/3\/workflow_steps\/a106fd20-4b49-4bc7-a84e-c793825fb595",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "1b54a539-0800-45cb-b626-a5c9f59b33f9"
+        }
+    ],
+    "groups": [],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "playbookOrigin": "\/api\/3\/picklists\/15c1e8c9-22bf-4e66-8fbb-0a502d4a4a3f",
+    "isEditable": true,
+    "uuid": "e690c6cb-f2bc-424b-8eb2-6f092d857ed6",
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null,
+    "recordTags": [
+        "Referenced"
+    ]
+}
