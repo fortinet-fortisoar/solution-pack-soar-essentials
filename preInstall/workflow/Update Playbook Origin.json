@@ -69,6 +69,7 @@
                 },
                 "connector": "cyops_utilities",
                 "operation": "make_cyops_request",
+                "ignore_errors": true,
                 "operationTitle": "FSR: Make FortiSOAR API Call",
                 "step_variables": []
             },
