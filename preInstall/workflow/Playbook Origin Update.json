@@ -7,7 +7,7 @@
     "tag": null,
     "description": "This playbook changes the specified playbook's origin to \"Solution Pack.\"",
     "isActive": true,
-    "debug": false,
+    "debug": true,
     "singleRecordExecution": false,
     "remoteExecutableFlag": false,
     "parameters": [],
@@ -18,7 +18,23 @@
     "steps": [
         {
             "@type": "WorkflowStep",
-            "name": "Check if SFSP is Installed",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "sfspIRI": "03365c18-052a-4758-abaf-3e31aec66fc6",
+                "isSFSPInstalled": "false",
+                "playbookIRIList": "{\n    \"02000b45-97fc-47f2-a8a7-5b03d2625898\": \"Enrich Indicators (Type All)\",\n    \"bff221c6-1a9b-4486-8180-6841e7a59f34\": \"Extract Indicators (Alerts)\",\n    \"01df62ec-cee0-4238-bcf9-8dc9ad5247f7\": \"Extract Indicators (Incidents)\",\n    \"4a6f45ea-a029-4cd6-88cf-3798ed282338\": \"Indicator (Type Host) - Get Reputation\",\n    \"01629382-b6a7-450d-8179-6b2faa9ad977\": \"Indicator (Type Port) - Get Reputation\",\n    \"0fd7237e-cb91-4e78-9907-eecbb23ff36a\": \"Indicator (Type Process) - Get Reputation\",\n    \"c774e089-3005-4950-9cb0-77d745b861a4\": \"Indicator (Type Registry) - Get Reputation\"\n}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "c4031f36-8309-44d8-8b5f-f80b5c2268fd"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get SFSP Install Status",
             "description": null,
             "arguments": {
                 "params": {
@@ -31,7 +47,9 @@
                 "operation": "make_cyops_request",
                 "ignore_errors": true,
                 "operationTitle": "FSR: Make FortiSOAR API Call",
-                "step_variables": []
+                "step_variables": {
+                    "isSFSPInstalled": "{% if vars.steps.Get_SFSP_Install_Status.data %}true{% else %}false{% endif %}"
+                }
             },
             "status": null,
             "top": "300",
@@ -42,21 +60,6 @@
         },
         {
             "@type": "WorkflowStep",
-            "name": "Configuration",
-            "description": null,
-            "arguments": {
-                "sfspIRI": "03365c18-052a-4758-abaf-3e31aec66fc6",
-                "playbookIRIList": "{\n    \"02000b45-97fc-47f2-a8a7-5b03d2625898\": \"Enrich Indicators (Type All)\",\n    \"bff221c6-1a9b-4486-8180-6841e7a59f34\": \"Extract Indicators (Alerts)\",\n    \"01df62ec-cee0-4238-bcf9-8dc9ad5247f7\": \"Extract Indicators (Incidents)\",\n    \"4a6f45ea-a029-4cd6-88cf-3798ed282338\": \"Indicator (Type Host) - Get Reputation\",\n    \"01629382-b6a7-450d-8179-6b2faa9ad977\": \"Indicator (Type Port) - Get Reputation\",\n    \"0fd7237e-cb91-4e78-9907-eecbb23ff36a\": \"Indicator (Type Process) - Get Reputation\",\n    \"c774e089-3005-4950-9cb0-77d745b861a4\": \"Indicator (Type Registry) - Get Reputation\"\n}"
-            },
-            "status": null,
-            "top": "165",
-            "left": "300",
-            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "group": null,
-            "uuid": "c4031f36-8309-44d8-8b5f-f80b5c2268fd"
-        },
-        {
-            "@type": "WorkflowStep",
             "name": "Is SFSP Installed",
             "description": null,
             "arguments": {
@@ -64,24 +67,43 @@
                     {
                         "option": "Yes",
                         "step_iri": "\/api\/3\/workflow_steps\/4b86db8f-d2d8-4a8a-8bea-9700ae5ab7dd",
-                        "condition": "{{ vars.steps.Check_if_SFSP_is_Installed.data.installed }}",
+                        "condition": "{{ vars.isSFSPInstalled }}",
                         "step_name": "Update Playbook Origin"
                     },
                     {
                         "option": "No",
                         "default": true,
                         "step_iri": "\/api\/3\/workflow_steps\/c180d7de-0c28-44d6-b734-cb55a76391a6",
-                        "step_name": "Stop Execution"
+                        "step_name": "No Operation"
                     }
                 ],
                 "step_variables": []
             },
             "status": null,
-            "top": "440",
+            "top": "435",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
             "group": null,
             "uuid": "425d658a-2e1e-4a9e-89ef-b5b3c83bc51b"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "No Operation",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "3.5.0",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "group": null,
+            "uuid": "c180d7de-0c28-44d6-b734-cb55a76391a6"
         },
         {
             "@type": "WorkflowStep",
@@ -103,25 +125,6 @@
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
             "group": null,
             "uuid": "a106fd20-4b49-4bc7-a84e-c793825fb595"
-        },
-        {
-            "@type": "WorkflowStep",
-            "name": "Stop Execution",
-            "description": null,
-            "arguments": {
-                "params": [],
-                "version": "3.5.0",
-                "connector": "cyops_utilities",
-                "operation": "no_op",
-                "operationTitle": "Utils: No Operation",
-                "step_variables": []
-            },
-            "status": null,
-            "top": "570",
-            "left": "125",
-            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "group": null,
-            "uuid": "c180d7de-0c28-44d6-b734-cb55a76391a6"
         },
         {
             "@type": "WorkflowStep",

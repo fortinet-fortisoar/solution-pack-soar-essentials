@@ -7,7 +7,7 @@
     "tag": null,
     "description": "This playbook checks if the playbook is available, then updates its origin to \"Solution Pack.\"",
     "isActive": true,
-    "debug": false,
+    "debug": true,
     "singleRecordExecution": false,
     "remoteExecutableFlag": false,
     "parameters": [
@@ -20,7 +20,7 @@
     "steps": [
         {
             "@type": "WorkflowStep",
-            "name": "Check if Playbook is Present",
+            "name": "Check if Playbook Present",
             "description": null,
             "arguments": {
                 "params": {
@@ -34,7 +34,7 @@
                 "ignore_errors": true,
                 "operationTitle": "FSR: Make FortiSOAR API Call",
                 "step_variables": {
-                    "isPlaybookPresent": "{% if vars.steps.Check_if_Playbook_is_Present.data %}true{% else %}false{% endif %}"
+                    "isPlaybookPresent": "{% if vars.steps.Check_if_Playbook_Present.data %}true{% else %}false{% endif %}"
                 }
             },
             "status": null,
