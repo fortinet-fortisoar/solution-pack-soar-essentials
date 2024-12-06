@@ -21,9 +21,10 @@
             "name": "Configuration",
             "description": null,
             "arguments": {
-                "sfspIRI": "03365c18-052a-4758-abaf-3e31aec66fc6",
+                "pbsToBeUpdated": "[]",
                 "isSFSPInstalled": "false",
-                "playbookIRIList": "{\n    \"02000b45-97fc-47f2-a8a7-5b03d2625898\": \"Enrich Indicators (Type All)\",\n    \"bff221c6-1a9b-4486-8180-6841e7a59f34\": \"Extract Indicators (Alerts)\",\n    \"01df62ec-cee0-4238-bcf9-8dc9ad5247f7\": \"Extract Indicators (Incidents)\",\n    \"4a6f45ea-a029-4cd6-88cf-3798ed282338\": \"Indicator (Type Host) - Get Reputation\",\n    \"01629382-b6a7-450d-8179-6b2faa9ad977\": \"Indicator (Type Port) - Get Reputation\",\n    \"0fd7237e-cb91-4e78-9907-eecbb23ff36a\": \"Indicator (Type Process) - Get Reputation\",\n    \"c774e089-3005-4950-9cb0-77d745b861a4\": \"Indicator (Type Registry) - Get Reputation\"\n}"
+                "fetchPlaybookFilter": "{\n    \"limit\": 500,\n    \"logic\": \"AND\",\n    \"filters\": [\n        {\n            \"field\": \"collection\",\n            \"operator\": \"in\",\n            \"value\": [\n                \"\/api\/3\/workflow_collections\/4dc865c8-012e-4326-8be5-252b723ea734\",\n                \"\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857\",\n                \"\/api\/3\/workflow_collections\/deaa4d19-7444-4f3a-a80e-9577436f25ef\",\n                \"\/api\/3\/workflow_collections\/4a9adb3a-1a68-4b28-8096-ea12210dfeab\",\n                \"\/api\/3\/workflow_collections\/d18c85d8-4365-43a7-b1ff-48e65418aa6b\",\n                \"\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed\",\n                \"\/api\/3\/workflow_collections\/d98add27-83c9-4f73-a370-16454398e317\",\n                \"\/api\/3\/workflow_collections\/e811949a-45b4-4189-b524-fdb64c417810\",\n                \"\/api\/3\/workflow_collections\/c9282ce9-1cef-4e0b-94da-3b84c32381ff\",\n                \"\/api\/3\/workflow_collections\/20289298-cdd6-4052-8fa0-11e2603dca00\"\n            ]\n        }\n    ],\n    \"page\": 1,\n    \"__selectFields\": [\n        \"createDate\",\n        \"modifyDate\",\n        \"uuid\"\n    ]\n}",
+                "sfspInstallStatusFilter": "{\n    \"sort\": [\n        {\n            \"field\": \"featured\",\n            \"direction\": \"DESC\"\n        },\n        {\n            \"field\": \"label\",\n            \"direction\": \"ASC\"\n        }\n    ],\n    \"limit\": 30,\n    \"logic\": \"AND\",\n    \"filters\": [\n        {\n            \"field\": \"type\",\n            \"operator\": \"in\",\n            \"value\": [\n                \"solutionpack\"\n            ]\n        },\n        {\n            \"field\": \"name\",\n            \"operator\": \"like\",\n            \"value\": \"sOARFramework\"\n        }\n    ],\n    \"page\": 1,\n    \"__selectFields\": [\n        \"name\",\n        \"installed\",\n        \"label\",\n        \"version\"\n    ]\n}"
             },
             "status": null,
             "top": "165",
@@ -34,13 +35,50 @@
         },
         {
             "@type": "WorkflowStep",
-            "name": "Get SFSP Install Status",
-            "description": null,
+            "name": "Fetch SFSP Playbooks",
+            "description": "Fetches playbooks from all SFSP collections.",
             "arguments": {
                 "params": {
-                    "iri": "\/api\/3\/solutionpacks\/{{vars.sfspIRI}}",
-                    "body": "",
-                    "method": "GET"
+                    "iri": "\/api\/query\/workflows?$limit=1000",
+                    "body": "{{vars.fetchPlaybookFilter}}",
+                    "method": "POST"
+                },
+                "version": "3.5.0",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "FSR: Make FortiSOAR API Call",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "group": null,
+            "uuid": "9edca16f-a620-4982-9c71-1423f6a60fda"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Filter Playbooks for Updates",
+            "description": null,
+            "arguments": {
+                "_temp": "{% for item in vars.steps.Fetch_SFSP_Playbooks.data['hydra:member'] %}{% if item.createDate != item.modifyDate %}{{vars.pbsToBeUpdated.append(item.uuid)}}{% endif %}{% endfor%}"
+            },
+            "status": null,
+            "top": "705",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "867bc43f-fd04-461a-b92f-f9d83823985e"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get SFSP Install Status",
+            "description": "This step checks if SFSP is installed; if not, the playbook stops during a fresh install.",
+            "arguments": {
+                "params": {
+                    "iri": "\/api\/query\/solutionpacks?$limit=30&$page=1",
+                    "body": "{{vars.sfspInstallStatusFilter}}",
+                    "method": "POST"
                 },
                 "version": "3.5.0",
                 "connector": "cyops_utilities",
@@ -48,7 +86,7 @@
                 "ignore_errors": true,
                 "operationTitle": "FSR: Make FortiSOAR API Call",
                 "step_variables": {
-                    "isSFSPInstalled": "{% if vars.steps.Get_SFSP_Install_Status.data %}true{% else %}false{% endif %}"
+                    "isSFSPInstalled": "{% if vars.steps.Get_SFSP_Install_Status.data['hydra:member'] | length > 0 %}{{vars.steps.Get_SFSP_Install_Status.data['hydra:member'][0].installed}}{% endif %}"
                 }
             },
             "status": null,
@@ -66,9 +104,9 @@
                 "conditions": [
                     {
                         "option": "Yes",
-                        "step_iri": "\/api\/3\/workflow_steps\/4b86db8f-d2d8-4a8a-8bea-9700ae5ab7dd",
+                        "step_iri": "\/api\/3\/workflow_steps\/9edca16f-a620-4982-9c71-1423f6a60fda",
                         "condition": "{{ vars.isSFSPInstalled }}",
-                        "step_name": "Update Playbook Origin"
+                        "step_name": "Fetch SFSP Playbooks"
                     },
                     {
                         "option": "No",
@@ -100,7 +138,7 @@
             },
             "status": null,
             "top": "570",
-            "left": "125",
+            "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
             "group": null,
             "uuid": "c180d7de-0c28-44d6-b734-cb55a76391a6"
@@ -132,7 +170,7 @@
             "description": null,
             "arguments": {
                 "for_each": {
-                    "item": "{{vars.playbookIRIList.keys() | list}}",
+                    "item": "{{vars.pbsToBeUpdated}}",
                     "__bulk": false,
                     "parallel": true,
                     "condition": ""
@@ -148,24 +186,14 @@
                 "workflowReference": "\/api\/3\/workflows\/f92730c4-ac33-43df-9d9a-0388ce15402c"
             },
             "status": null,
-            "top": "570",
-            "left": "475",
+            "top": "840",
+            "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
             "group": null,
             "uuid": "4b86db8f-d2d8-4a8a-8bea-9700ae5ab7dd"
         }
     ],
     "routes": [
-        {
-            "@type": "WorkflowRoute",
-            "name": "Check if SFSP is Installed -> Is SFSP Installed",
-            "targetStep": "\/api\/3\/workflow_steps\/425d658a-2e1e-4a9e-89ef-b5b3c83bc51b",
-            "sourceStep": "\/api\/3\/workflow_steps\/dc73fd58-02b7-4b9e-8fa2-df995a64cd7c",
-            "label": null,
-            "isExecuted": false,
-            "group": null,
-            "uuid": "5cf1fea9-6311-4f25-a360-28fe9f311614"
-        },
         {
             "@type": "WorkflowRoute",
             "name": "Configuration -> Check SFSP Install Status",
@@ -178,6 +206,46 @@
         },
         {
             "@type": "WorkflowRoute",
+            "name": "Filter Playbooks for Updates -> Update Playbook Origina",
+            "targetStep": "\/api\/3\/workflow_steps\/4b86db8f-d2d8-4a8a-8bea-9700ae5ab7dd",
+            "sourceStep": "\/api\/3\/workflow_steps\/867bc43f-fd04-461a-b92f-f9d83823985e",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "3de36b12-a714-4736-bb34-bb5ae3d7459e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get SFSP Install Status -> Is SFSP Installed",
+            "targetStep": "\/api\/3\/workflow_steps\/425d658a-2e1e-4a9e-89ef-b5b3c83bc51b",
+            "sourceStep": "\/api\/3\/workflow_steps\/dc73fd58-02b7-4b9e-8fa2-df995a64cd7c",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "24d27720-8d10-4f88-895f-b80d99188ac9"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get SFSP Playbooks -> Filter Playbooks for Updates",
+            "targetStep": "\/api\/3\/workflow_steps\/867bc43f-fd04-461a-b92f-f9d83823985e",
+            "sourceStep": "\/api\/3\/workflow_steps\/9edca16f-a620-4982-9c71-1423f6a60fda",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "1f387cc6-08fc-461f-903a-aeb14abaf58b"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Is SFSP Installed -> Fetch Playbooks",
+            "targetStep": "\/api\/3\/workflow_steps\/9edca16f-a620-4982-9c71-1423f6a60fda",
+            "sourceStep": "\/api\/3\/workflow_steps\/425d658a-2e1e-4a9e-89ef-b5b3c83bc51b",
+            "label": "Yes",
+            "isExecuted": false,
+            "group": null,
+            "uuid": "c02d37ec-40e3-4758-921d-eb5ded43b8f2"
+        },
+        {
+            "@type": "WorkflowRoute",
             "name": "Is SFSP Installed -> Stop Execution",
             "targetStep": "\/api\/3\/workflow_steps\/c180d7de-0c28-44d6-b734-cb55a76391a6",
             "sourceStep": "\/api\/3\/workflow_steps\/425d658a-2e1e-4a9e-89ef-b5b3c83bc51b",
@@ -185,16 +253,6 @@
             "isExecuted": false,
             "group": null,
             "uuid": "d295bf67-ce5a-464e-b19e-940fd00e5b6b"
-        },
-        {
-            "@type": "WorkflowRoute",
-            "name": "Is SFSP Installed -> Update Playbook Origin",
-            "targetStep": "\/api\/3\/workflow_steps\/4b86db8f-d2d8-4a8a-8bea-9700ae5ab7dd",
-            "sourceStep": "\/api\/3\/workflow_steps\/425d658a-2e1e-4a9e-89ef-b5b3c83bc51b",
-            "label": "Yes",
-            "isExecuted": false,
-            "group": null,
-            "uuid": "90707da6-613f-4b24-9e46-a0ad653a3aba"
         },
         {
             "@type": "WorkflowRoute",
