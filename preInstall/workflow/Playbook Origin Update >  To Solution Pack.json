@@ -20,37 +20,10 @@
     "steps": [
         {
             "@type": "WorkflowStep",
-            "name": "Check if Playbook Present",
-            "description": null,
-            "arguments": {
-                "params": {
-                    "iri": "\/api\/3\/workflows\/{{vars.playbookUUID}}",
-                    "body": "",
-                    "method": "GET"
-                },
-                "version": "3.5.0",
-                "connector": "cyops_utilities",
-                "operation": "make_cyops_request",
-                "ignore_errors": true,
-                "operationTitle": "FSR: Make FortiSOAR API Call",
-                "step_variables": {
-                    "isPlaybookPresent": "{% if vars.steps.Check_if_Playbook_Present.data %}true{% else %}false{% endif %}"
-                }
-            },
-            "status": null,
-            "top": "300",
-            "left": "125",
-            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "group": null,
-            "uuid": "074af543-7685-40d3-9b2c-e2bed9099180"
-        },
-        {
-            "@type": "WorkflowStep",
             "name": "Configuration",
             "description": null,
             "arguments": {
                 "playbookUUID": "{{vars.input.params.playbookUUID}}",
-                "isPlaybookPresent": "false",
                 "playbookOriginIRI": "{{\"Playbook Origin\" | picklist(\"Solution Pack\", \"@id\")}}"
             },
             "status": null,
@@ -86,7 +59,6 @@
             "name": "Update Origin to Solution Pack",
             "description": null,
             "arguments": {
-                "when": "{{vars.isPlaybookPresent}}",
                 "params": {
                     "iri": "\/api\/3\/workflows\/{{vars.playbookUUID}}",
                     "body": "{\n\"playbookOrigin\": \"{{vars.playbookOriginIRI}}\"\n}",
@@ -100,7 +72,7 @@
                 "step_variables": []
             },
             "status": null,
-            "top": "435",
+            "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
             "group": null,
@@ -110,23 +82,13 @@
     "routes": [
         {
             "@type": "WorkflowRoute",
-            "name": "Check if Playbook is Present -> Update Origin to Solution Pack",
+            "name": "Configuration -> Update Origin to Solution Pack",
             "targetStep": "\/api\/3\/workflow_steps\/edbf72b4-e090-4f06-ae97-f4451ea4444c",
-            "sourceStep": "\/api\/3\/workflow_steps\/074af543-7685-40d3-9b2c-e2bed9099180",
-            "label": null,
-            "isExecuted": false,
-            "group": null,
-            "uuid": "3835f6f4-d17d-476c-b534-a5a353b59265"
-        },
-        {
-            "@type": "WorkflowRoute",
-            "name": "Configuration -> Check if Playbook is Present",
-            "targetStep": "\/api\/3\/workflow_steps\/074af543-7685-40d3-9b2c-e2bed9099180",
             "sourceStep": "\/api\/3\/workflow_steps\/2d4b0ec9-a35b-4d23-96ec-12c16e0d7655",
             "label": null,
             "isExecuted": false,
             "group": null,
-            "uuid": "ae45f877-e9ce-4224-b558-d648fbfbcf92"
+            "uuid": "2446761c-ad9f-4b82-824a-a4bf83a7dcff"
         },
         {
             "@type": "WorkflowRoute",
@@ -141,7 +103,7 @@
     ],
     "groups": [],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-    "playbookOrigin": "\/api\/3\/picklists\/15c1e8c9-22bf-4e66-8fbb-0a502d4a4a3f",
+    "playbookOrigin": "\/api\/3\/picklists\/b6d710a9-a8ec-41ec-8817-fe9fa062fcdd",
     "isEditable": true,
     "uuid": "f92730c4-ac33-43df-9d9a-0388ce15402c",
     "owners": [],
