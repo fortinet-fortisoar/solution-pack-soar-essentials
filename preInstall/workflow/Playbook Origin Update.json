@@ -24,7 +24,7 @@
                 "pbsToBeUpdated": "[]",
                 "isSFSPInstalled": "false",
                 "fetchPlaybookFilter": "{\n    \"limit\": 500,\n    \"logic\": \"AND\",\n    \"filters\": [\n        {\n            \"field\": \"collection\",\n            \"operator\": \"in\",\n            \"value\": [\n                \"\/api\/3\/workflow_collections\/4dc865c8-012e-4326-8be5-252b723ea734\",\n                \"\/api\/3\/workflow_collections\/59667fcc-7feb-4ba4-a5a2-e03a9287f857\",\n                \"\/api\/3\/workflow_collections\/deaa4d19-7444-4f3a-a80e-9577436f25ef\",\n                \"\/api\/3\/workflow_collections\/4a9adb3a-1a68-4b28-8096-ea12210dfeab\",\n                \"\/api\/3\/workflow_collections\/d18c85d8-4365-43a7-b1ff-48e65418aa6b\",\n                \"\/api\/3\/workflow_collections\/3c3b049e-5ecb-464a-83f6-5af6a230c0ed\",\n                \"\/api\/3\/workflow_collections\/d98add27-83c9-4f73-a370-16454398e317\",\n                \"\/api\/3\/workflow_collections\/e811949a-45b4-4189-b524-fdb64c417810\",\n                \"\/api\/3\/workflow_collections\/c9282ce9-1cef-4e0b-94da-3b84c32381ff\",\n                \"\/api\/3\/workflow_collections\/20289298-cdd6-4052-8fa0-11e2603dca00\"\n            ]\n        }\n    ],\n    \"page\": 1,\n    \"__selectFields\": [\n        \"createDate\",\n        \"modifyDate\",\n        \"uuid\"\n    ]\n}",
-                "sfspInstallStatusFilter": "{\n    \"sort\": [\n        {\n            \"field\": \"featured\",\n            \"direction\": \"DESC\"\n        },\n        {\n            \"field\": \"label\",\n            \"direction\": \"ASC\"\n        }\n    ],\n    \"limit\": 30,\n    \"logic\": \"AND\",\n    \"filters\": [\n        {\n            \"field\": \"type\",\n            \"operator\": \"in\",\n            \"value\": [\n                \"solutionpack\"\n            ]\n        },\n        {\n            \"field\": \"name\",\n            \"operator\": \"like\",\n            \"value\": \"sOARFramework\"\n        }\n    ],\n    \"page\": 1,\n    \"__selectFields\": [\n        \"name\",\n        \"installed\",\n        \"label\",\n        \"version\"\n    ]\n}"
+                "sfspInstallStatusFilter": "{\n    \"sort\": [\n        {\n            \"field\": \"featured\",\n            \"direction\": \"DESC\"\n        },\n        {\n            \"field\": \"label\",\n            \"direction\": \"ASC\"\n        }\n    ],\n    \"limit\": 30,\n    \"logic\": \"AND\",\n    \"filters\": [\n        {\n            \"field\": \"type\",\n            \"operator\": \"in\",\n            \"value\": [\n                \"solutionpack\"\n            ]\n        },\n        {\n            \"field\": \"name\",\n            \"operator\": \"like\",\n            \"value\": \"sOARFramework\"\n        }\n    ],\n    \"page\": 1,\n    \"__selectFields\": [\n        \"name\",\n        \"installed\",\n        \"label\",\n        \"version\",\n        \"infocontent\"\n    ]\n}"
             },
             "status": null,
             "top": "165",
@@ -46,6 +46,7 @@
                 "version": "3.5.0",
                 "connector": "cyops_utilities",
                 "operation": "make_cyops_request",
+                "ignore_errors": true,
                 "operationTitle": "FSR: Make FortiSOAR API Call",
                 "step_variables": []
             },
