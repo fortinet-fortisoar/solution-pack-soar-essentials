@@ -18,10 +18,8 @@ SOAR Framework Solution Pack provides standardized modules for various operation
 8. Indicators
 9. War Rooms
 
-<table>
-    <th>NOTE</th>
-    <td>On a fresh install of FortiSOAR&trade;, <code>Tenant</code> is not a uniqueness constraint for any of the modules. However, when SOAR Framework Solution Pack is upgraded, <code>Tenant</code> is added as a uniqueness constraint in <strong><em>Alerts</em></strong>, <strong><em>Incidents</em></strong>, <strong><em>Indicators</em></strong>, and <strong><em>SLA Templates</em></strong>.</td>
-</table>
+> [!Note]
+> On a fresh install of FortiSOAR&trade;, `Tenant` is not a uniqueness constraint for any of the modules. However, when SOAR Framework Solution Pack is upgraded, `Tenant` is added as a uniqueness constraint in `Alerts`, `Incidents`, `Indicators`, and `SLA Templates`.
 
 ## Standardized Process
 

@@ -8,6 +8,7 @@ By default, the **Alert** module has a default alert schema that has provisions 
 As part of the alert ingestion process, you may need to add additional fields. Following is a sample process to achieve this objective.
 
 1. Add a desired field to the **Alerts** module. For detailed instructions to achieve this objective, refer to [Modifying an existing module](https://docs.fortinet.com/document/fortisoar/7.0.2/administration-guide/97786/application-editor#Modifying_an_existing_module).
+
     > As an example, let us add a field with **Field Title** as `Targeted Employee Email Address`, **Field API key** as `targetedEmployeeEmailAddress` and **Field Type** as `Email Field`.
 
 2. Add the field in alert details.
@@ -25,7 +26,7 @@ As part of the alert ingestion process, you may need to add additional fields. F
     </ol>
 4. Map this field appropriately in the **Data Ingestion** process. Refer to [Data Ingestion Wizard](https://docs.fortinet.com/document/fortisoar/7.2.0/connectors-guide/682058/data-ingestion#Data_Ingestion_Wizard) for details.
 
-5. To extract this field as an indicator, refer to [extending indicator extraction process](./extending-default-indicator-extraction-process.md).
+5. To extract this field as an indicator, refer to [Extending Indicator Extraction Process](./extending-default-indicator-extraction-process.md).
 
 # Default Alert Schema
 
