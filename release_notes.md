@@ -7,12 +7,15 @@
     </tr>
 </table>
 
->[!Note]
->Before updating the SOAR Framework solution pack, make sure to back up any modifications you have made to **System View Templates (SVTs)** and **Playbooks**. This is essential because updating the solution pack overwrites any changes you might have made.
+<table>
+    <th>NOTE</th>
+    <td>Before updating the SOAR Framework solution pack, make sure to back up any modifications you have made to <strong>System View Templates (SVTs)</strong> and <strong>Playbooks</strong>. This is essential because updating the solution pack overwrites any changes you might have made.
+    </td>
+</table>
 
 ## Streamlined Indicator Extraction
 
-The indicator extraction configuration has a friendly, wizard-like, user interface. This configuration wizard is accessible from the button **Manage Indicator Exclusion List** under **Setup Guide** ![setup guide icon](./docs/res/icon-setup-guide.svg) ![chevron right icon](./docs/res/icon-chevron-right.svg) **STREAMLINE** ![chevron right icon](./docs/res/icon-chevron-right.svg) **Configure Indicator Extraction**.
+The indicator extraction configuration has a friendly, wizard-like, user interface. This configuration wizard is accessible from the button **Manage Indicator Exclusion List** under **Setup Guide** > **STREAMLINE** > **Configure Indicator Extraction**.
 
 This new feature **Indicator Extraction Configuration**, now eases the process of:
 
@@ -28,8 +31,10 @@ The following playbooks migrate indicator extraction settings to the new keystor
 
 - **Excluded Indicators Migration > Fetch Migration Data**
 
->[!Important]
-> Refer to the section [Upgrading SOAR Framework to the latest version](./docs/upgrading-sfsp-to-latest.md) to know what this change entails and how it affects users.
+<table>
+    <th>IMPORTANT</th>
+    <td>Refer to the section <em>Upgrading SOAR Framework to the latest version</em> to know what this change entails and how it affects users.</td>
+</table>
 
 ### Enhanced Playbooks for Consistent Integration
 
@@ -41,7 +46,7 @@ The following playbooks now read from, and write to, the new keystore record ins
 
 - **04 - Actions** > **Add Exclude List to Keystore** adds an indicator to the *Exclude List* in the new key store record.
 
-Refer to the [Extending default indicator extraction process](./docs/extending-default-indicator-extraction-process.md) section to understand the improved extraction configuration process.
+Refer to the section *Extending default indicator extraction process* to understand the improved extraction configuration process.
 
 ## Playbook Enhancements
 
@@ -57,7 +62,7 @@ The solution replaces the deprecated **Extract Artifacts from String** action fr
 
 ### Limiting Playbook Edits
 
-With FortiSOAR `v7.6.1` editing [system playbooks](./docs/contents.md#playbook-collection) is now restricted with the exception of the following:
+With FortiSOAR `v7.6.1` editing system playbooks (playbooks shipped with SOAR Framework solution pack) is now restricted with the exception of the following:
 
 - All playbooks under the collection **04 - Actions**.
 - The playbook  **Alert - Close Corresponding SIEM Alert** under the collection **06 - IRP - Case Management**.
@@ -78,7 +83,7 @@ This enhancement ensures that user changes remain intact after upgrade while sti
 
 - The **Full App Permission** role no longer allows deletion of **Key Store** records.
 
-- The tasks in **Streamline** section, under **Setup Guide** ![setup guide icon](./docs/res/icon-setup-guide.svg), have been reordered.
+- The tasks in **Streamline** section, under **Setup Guide**, have been reordered.
     - The button *Configure Exclude List* is now renamed to **Manage Indicator Exclusion List**  
 
 - Default list of pre-installed connectors has been reduced to the following:
@@ -91,5 +96,7 @@ This enhancement ensures that user changes remain intact after upgrade while sti
     - VirusTotal
     - Whois RDAP
 
-> [!Note]
-> This change is applicable only to new installations. Additional connectors can still be downloaded and installed from the Content Hub.
+<table>
+    <th>NOTE</th>
+    <td>This change is applicable only to new installations. Additional connectors can still be downloaded and installed from the Content Hub.</td>
+</table>
