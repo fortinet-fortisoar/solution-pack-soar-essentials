@@ -58,7 +58,7 @@ For each task you have three options:
 
     ![](../res/setup-guide/setup-guide-done.png)
 
-    - Click **Mark as Done** to display that task with a green circular check ![icon green check](./res/icon-mark-as-done.svg). A **Reset Task Options** button appears in its place.
+    - Click **Mark as Done** to display that task with a green circular check ![icon green check](../res/setup-guide/icon-mark-as-done.svg). A **Reset Task Options** button appears in its place.
 
     - Click **Reset Task Options** button to bring back the options, in case you clicked **Marked as Done** in error.
 

@@ -12,6 +12,9 @@ SOAR Framework `v3.1.0` and later uses the new keystore records instead of old k
 
 There may be cases where user-modified playbooks are still reliant on the old keystore records or legacy global variables. This section helps users to edit their user-modified playbooks so as to use the new keystore record.
 
+> [!Important]
+> Configuration changes made through the [*Indicator Extraction Configuration*](../docs/iec/indicator-extraction-wizard.md) wizard updates the key store record and not the Global Variables.
+
 ### Editing Extraction Playbooks - An Example
 
 Let us consider the playbook **Extract Indicators (Alerts)** as an example. We will edit this playbook to refer to the new keystore record.
@@ -46,7 +49,7 @@ Similar expressions retrieved exclude list for other indicator types.
 Now, the following expression helps retrieve excluded list of **IP addresses** using the new keystore record:
 
 ```jinja
-    {{get_value_from_keystore(keystore_name="sfsp-indicator-extraction-configuration").jSONValue["IP Address"]}}
+    {{keystore(key_name="sfsp-indicator-extraction-configuration").jSONValue["IP Address"]}}
 ```
 
 ![Retrieving excluded IPs using the new keystore](./res/retrieve-excluded-IP.png)

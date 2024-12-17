@@ -182,7 +182,7 @@ Adding comments to excluded files documents exclusion reasons, aids future analy
 
 - Click ![](../res/iec/icon-check.svg) **Save & Continue** to save the changes and move to the next page.
 
-For each file excluded from extraction, a comment is added. For example, a file named `headers.txt` carries the comment
+For each file excluded from extraction, a comment is added to the associated alert. For example, a file named `headers.txt` carries the comment
 
 >`headers.txt` has been excluded from file indicator creation.
 
