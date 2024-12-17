@@ -3,7 +3,7 @@
 
 # Managing `Team Ownable` Settings
 
-Starting SOAR Framework Solution Pack version `v2.2.1` and later, the team ownable setting for out-of-the-box modules is **_`disabled`_** by default to improve performance. For *War Room*, however, it has been enabled from SOAR Framework `v2.3.0`.
+With SOAR Framework Solution Pack version `v2.2.1` and later, the team ownable setting for out-of-the-box modules is **_`disabled`_** by default to improve performance. For *War Room*, however, it has been enabled from SOAR Framework `v2.3.0` onwards.
 
 However, if you have multiple teams, you may want to **_`enable`_** this option to control the teams' access to various records.
 

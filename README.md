@@ -3,7 +3,7 @@
 - **Version**:  3.1.0
 - **Certified**: Yes 
 - **Publisher**: Fortinet 
-- **Compatible Version**: FortiSOAR v7.6.0 and later
+- **Compatible Version**: FortiSOAR v7.6.1 and later
 - [Release Notes](./release_notes.md)
 
 # Overview 
@@ -66,7 +66,6 @@ The following diagram helps better understand the overall process and the subseq
 
     A **War Room** in this scenario brings together all the above teams and helps devise a more intuitive plan of action.
 
-<!-- - **Incident Response** - These playbooks help plan a response to an incident such as a malware attack. -->
 
 ## Additional Resources 
 
@@ -80,6 +79,8 @@ The following diagram helps better understand the overall process and the subseq
 
 - [Extending Default Indicator Extraction Process](./docs/extending-default-indicator-extraction-process.md)
 
+- [Excluding Extracted Indicators from Enrichment](./docs/extending-default-indicator-extraction-process.md#excluding-extracted-indicators-from-enrichment)
+
 - [Extending Default Indicator Enrichment Process](./docs/extending-default-indicator-enrichment-process.md)
 
 - [Building Investigation/Response Playbook](./docs/building-investigation-response-playbook.md)
@@ -88,7 +89,10 @@ The following diagram helps better understand the overall process and the subseq
 
 - [Setting up Communications Tracking for Custom Modules](./docs/setting-up-comms-module.md)
 
-- [Excluding Extracted Indicators from Enrichment](./docs/extending-default-indicator-extraction-process.md#excluding-extracted-indicators-from-enrichment)
+- [Indicator Extraction Wizard](./docs/iec/indicator-extraction-wizard.md)
+
+- [Setup Guide](./docs/setup-guide/setup-guide.md)
+
 
 ## Next Steps
 

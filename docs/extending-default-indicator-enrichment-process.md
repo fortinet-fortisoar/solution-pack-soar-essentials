@@ -7,15 +7,16 @@ For every indicator &ndash; file URL, hash, domain, IP address, user &ndash; the
 
 In the default Indicator Enrichment process,
 
-- The playbooks run after indicator creation
+- The playbooks run *after* indicator creation
 - The playbooks take the *Type* and *Value* from the indicators
-- It reaches out to various sources to set the reputation in the indicator record
+- It reaches out to various sources to update the reputation in the indicator record
 
-Taking the data from these sources it formats and populates the description field with enrichment data.
+It formats and populates the description field with enrichment data taken from these sources.
 
 While these playbooks provide a strong foundation for enriching indicators in FortiSOAR, multiple configurations and subsequent playbook actions become available even after deployment. Going beyond investigation, you can add additional playbooks to run the indicators through various sources and services to get reputation and another context about indicators.
 
->**NOTE**: With the new *Pluggable* enrichment in place, the enrichment process is now faster and more optimized. We recommend using it to augment or enhance your indicator enrichment process.
+> [!NOTE]
+> With the new *Pluggable* enrichment in place, the enrichment process is now faster and more optimized. We recommend using it to augment or enhance your indicator enrichment process.
 
 # Using the *Pluggable* Indicator Enrichment
 
@@ -42,26 +43,26 @@ This enrichment process is triggered when an indicator is created. On creation, 
     - Field mapping
     - Enrichment summary
 
-*Pluggable* enrichment is available for the following list of connectors:
+*Pluggable* enrichment is available for the following connectors:
 
-| Connector                                              |
-|:-------------------------------------------------------|
-| Active Directory                                       |
-| Anomali ThreatStream                                   |
-| APIVoid                                                |
-| Azure Active Directory![](./res/icon-new.svg)          |
-| CrowdStrike Falcon Intelligence![](./res/icon-new.svg) |
-| Fortinet FortiGuard Threat Intelligence                |
-| Fortinet FortiSandbox                                  |
-| Fortinet Web Filter Lookup                             |
-| IBM XForce                                             |
-| IP Quality Score                                       |
-| IP Stack                                               |
-| Symantec DeepSight Intelligence                        |
-| URLScan.io                                             |
-| Virus Total Premium![](./res/icon-new.svg)             |
-| VirusTotal                                             |
-| Whois RDAP                                             |
+| Connector                               |
+|:----------------------------------------|
+| Active Directory                        |
+| Anomali ThreatStream                    |
+| APIVoid                                 |
+| Azure Active Directory                  |
+| CrowdStrike Falcon Intelligence         |
+| Fortinet FortiGuard Threat Intelligence |
+| Fortinet FortiSandbox                   |
+| Fortinet Web Filter Lookup              |
+| IBM XForce                              |
+| IP Quality Score                        |
+| IP Stack                                |
+| Symantec DeepSight Intelligence         |
+| URLScan.io                              |
+| Virus Total Premium                     |
+| VirusTotal                              |
+| Whois RDAP                              |
 
 # Next Steps
 
