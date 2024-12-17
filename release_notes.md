@@ -79,6 +79,9 @@ This enhancement ensures that user changes remain intact after upgrade while sti
 - The **Full App Permission** role no longer allows deletion of **Key Store** records.
 
 - The tasks in **Streamline** section, under **Setup Guide** ![setup guide icon](./docs/res/icon-setup-guide.svg), have been reordered.
+
+- The tasks in **Streamline** section, under **Setup Guide**, have been reordered.
+
     - The button *Configure Exclude List* is now renamed to **Manage Indicator Exclusion List**  
 
 - Default list of pre-installed connectors has been reduced to the following:
