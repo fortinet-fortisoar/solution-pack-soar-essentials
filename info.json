@@ -1,6 +1,6 @@
 {
     "name": "sOARFramework",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "type": "solutionpack",
     "local": true,
     "label": "SOAR Framework",
@@ -16,11 +16,11 @@
     "publisher": "Fortinet",
     "certified": "true",
     "description": "The SOAR Framework Solution Pack helps users experience the power of FortiSOAR incident response.",
-    "help": "https://github.com/fortinet-fortisoar/solution-pack-soar-framework/blob/release/3.0.0/README.md",
+    "help": "https://github.com/fortinet-fortisoar/solution-pack-soar-framework/blob/release/3.1.0/README.md",
     "category": [],
     "supportInfo": "Fortinet Customer Support",
     "iconLarge": null,
-    "fsrMinCompatibility": "7.6.0",
+    "fsrMinCompatibility": "7.6.1",
     "date": "2024-06-04T15:15:46+00:00",
     "contents": {
         "picklistNames": [
@@ -366,12 +366,6 @@
                 "default_value": "20"
             },
             {
-                "id": 9,
-                "name": "Indicator_Type_Map",
-                "value": "{\n    \"attachmentNames\": \"File\", \n    \"commandLine\": \"Process\", \n    \"computerName\": \"Host\",\n    \"decodedCommandLine\": \"Process\",\n    \"destinationIp\": \"IP Address\", \n    \"destinationPort\": \"Port\",\n    \"domain\": \"Domain\",\n    \"dllLoaded\": \"Process\",\n    \"emailFrom\": \"Email Address\",\n    \"emailCc\": \"Email Address\",\n    \"emailTo\": \"Email Address\",\n    \"fileHash\": \"FileHash-MD5\",\n    \"parentProcessCmdLine\": \"Process\",\n    \"parentProcessName\": \"Process\",\n    \"recipientEmailAddress\": \"Email Address\",\n    \"registryKey\": \"Registry\",\n    \"registryKeyValue\": \"Registry\",\n    \"reporter\": \"Email Address\",\n    \"returnPath\": \"Email Address\",\n    \"senderDomain\": \"Domain\", \n    \"senderEmailAddress\": \"Email Address\", \n    \"services\": \"Process\", \n    \"sourceIp\": \"IP Address\",\n    \"sourcePort\": \"Port\",\n    \"sourceProcess\": \"Process\",\n    \"targetAsset\": \"Host\", \n    \"targetProcess\": \"Process\",\n    \"url\": \"URL\",\n    \"userName\": \"User\",\n    \"userDetails\": \"User\",\n    \"urlFull\": \"URL\",\n    \"otherRecipients\": \"Email Address\",\n    \"iPAddresses\": \"IP Address\",\n    \"fileHashes\": \"FileHash-MD5\",\n    \"dLLName\": \"Process\", \n    \"filehash\": \"FileHash-MD5\", \n    \"processName\": \"Process\", \n    \"destinationIP\": \"IP Address\", \n    \"sourceIP\": \"IP Address\", \n    \"receipientEmailAddress\": \"Email Address\" \n}",
-                "default_value": "{\n    \"attachmentNames\": \"File\", \n    \"commandLine\": \"Process\", \n    \"computerName\": \"Host\",\n    \"decodedCommandLine\": \"Process\",\n    \"destinationIp\": \"IP Address\", \n    \"destinationPort\": \"Port\",\n    \"domain\": \"Domain\",\n    \"dllLoaded\": \"Process\",\n    \"emailFrom\": \"Email Address\",\n    \"emailCc\": \"Email Address\",\n    \"emailTo\": \"Email Address\",\n    \"fileHash\": \"FileHash-MD5\",\n    \"parentProcessCmdLine\": \"Process\",\n    \"parentProcessName\": \"Process\",\n    \"recipientEmailAddress\": \"Email Address\",\n    \"registryKey\": \"Registry\",\n    \"registryKeyValue\": \"Registry\",\n    \"reporter\": \"Email Address\",\n    \"returnPath\": \"Email Address\",\n    \"senderDomain\": \"Domain\", \n    \"senderEmailAddress\": \"Email Address\", \n    \"services\": \"Process\", \n    \"sourceIp\": \"IP Address\",\n    \"sourcePort\": \"Port\",\n    \"sourceProcess\": \"Process\",\n    \"targetAsset\": \"Host\", \n    \"targetProcess\": \"Process\",\n    \"url\": \"URL\",\n    \"userName\": \"User\",\n    \"userDetails\": \"User\",\n    \"urlFull\": \"URL\",\n    \"otherRecipients\": \"Email Address\",\n    \"iPAddresses\": \"IP Address\",\n    \"fileHashes\": \"FileHash-MD5\",\n    \"dLLName\": \"Process\", \n    \"filehash\": \"FileHash-MD5\", \n    \"processName\": \"Process\", \n    \"destinationIP\": \"IP Address\", \n    \"sourceIP\": \"IP Address\", \n    \"receipientEmailAddress\": \"Email Address\" \n}"
-            },
-            {
                 "id": 15,
                 "name": "Current_Date",
                 "value": "{{arrow.utcnow().timestamp}}",
@@ -574,18 +568,6 @@
         ],
         "connectors": [
             {
-                "name": "AlienVault-OTX",
-                "apiName": "alienvault-otx"
-            },
-            {
-                "name": "APIVoid",
-                "apiName": "apivoid"
-            },
-            {
-                "name": "CarbonBlack Response",
-                "apiName": "carbonblack-response"
-            },
-            {
                 "name": "Exchange",
                 "apiName": "exchange"
             },
@@ -604,46 +586,6 @@
             {
                 "name": "Fortinet FortiGate",
                 "apiName": "fortigate-firewall"
-            },
-            {
-                "name": "Fortinet FortiGuard Threat Intelligence",
-                "apiName": "fortinet-fortiguard-threat-intelligence"
-            },
-            {
-                "name": "Fortinet FortiSandbox",
-                "apiName": "fortinet-fortisandbox"
-            },
-            {
-                "name": "Fortinet FortiSIEM",
-                "apiName": "fortinet-fortisiem"
-            },
-            {
-                "name": "IBM XForce",
-                "apiName": "xforce"
-            },
-            {
-                "name": "IP Quality Score",
-                "apiName": "ip-quality-score"
-            },
-            {
-                "name": "IPStack",
-                "apiName": "ipstack"
-            },
-            {
-                "name": "Microsoft SCCM",
-                "apiName": "microsoft-sccm"
-            },
-            {
-                "name": "MxToolbox",
-                "apiName": "mxtoolbox"
-            },
-            {
-                "name": "NMAP Scanner",
-                "apiName": "nmap-scanner"
-            },
-            {
-                "name": "URLScan.io",
-                "apiName": "urlscan-io"
             },
             {
                 "name": "VirusTotal",
@@ -717,7 +659,7 @@
             {
                 "name": "Key Store",
                 "apiName": "keys",
-                "count": 6
+                "count": 2
             }
         ],
         "preprocessingRules": [

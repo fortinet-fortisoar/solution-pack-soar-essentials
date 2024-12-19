@@ -3,152 +3,96 @@
 <table>
     <tr>
         <th>Compatible Version</th>
-        <td>FortiSOAR v7.6.0 and later</td>
+        <td>FortiSOAR v7.6.1 and later</td>
     </tr>
 </table>
 
-<table>
-    <tr>
-        <th>NOTE</th>
-        <td>Before updating the SOAR Framework solution pack, make sure to back up any modifications you have made to <strong>System View Templates (SVTs)</strong>, <strong>Module Metadata (MMD)</strong>, and <strong>Playbooks</strong>. This is essential because updating the solution pack overwrites any changes you might have made.</td>
-    </tr>
-</table>
+>[!Note]
+>Before updating the SOAR Framework solution pack, make sure to back up any modifications you have made to **System View Templates (SVTs)** and **Playbooks**. This is essential because updating the solution pack overwrites any changes you might have made.
 
-## Indicator Extraction
+## Streamlined Indicator Extraction
 
-- A new playbook **Extract Indicators (Incidents)** now helps extract indicators from independently created new incidents.
+The indicator extraction configuration has a friendly, wizard-like, user interface. This configuration wizard is accessible from the button **Manage Indicator Exclusion List** under **Setup Guide** ![setup guide icon](./docs/res/icon-setup-guide.svg) ![chevron right icon](./docs/res/icon-chevron-right.svg) **STREAMLINE** ![chevron right icon](./docs/res/icon-chevron-right.svg) **Configure Indicator Extraction**.
 
-    <table>
-        <tr>
-            <th>NOTE</th>
-            <td>Indicators are extracted only from independently created new incidents, not from escalated incidents.</td>
-        </tr>
-    </table>
+This new feature **Indicator Extraction Configuration**, now eases the process of:
 
-- A **Indicator Extraction Configuration** widget now accepts indicators to be excluded from extraction and populates the corresponding key store records
+- defining indicators to be excluded from extraction, in small groups as well as in *bulk*
+- mapping alert and incident fields to be extracted as indicators
+- creating custom indicator types
 
-    - Key store records replace existing global variables for indicator extraction as per the following table:
+### Configuration Settings Migration
 
-        | Global Variable Name             | Key Store Record               |
-        |:---------------------------------|:-------------------------------|
-        | No corresponding global variable | `sfsp-excludelist-cidr-ranges` |
-        | `Excludelist_IPs`                | `sfsp-excludelist-ips`         |
-        | `Excludelist_URLs`               | `sfsp-excludelist-urls`        |
-        | `Excludelist_Domains`            | `sfsp-excludelist-domains`     |
-        | `Excludelist_Files`              | `sfsp-excludelist-files`       |
-        | `Excludelist_Ports`              | `sfsp-excludelist-ports`       |
+The following playbooks migrate indicator extraction settings to the new keystore records
 
-- Renamed the playbook **Extract Indicators** to **_Extract Indicators (Alerts)_**
+- **Excluded Indicators Migration**
 
-- Added following fields to the **Incident** module
+- **Excluded Indicators Migration > Fetch Migration Data**
 
-    - **Escalated** is a picklist with `Yes` and `No` as options
-    - **State** is a picklist with `AlertState` values as its options
+>[!Important]
+> Refer to the section [Upgrading SOAR Framework to the latest version](./docs/upgrading-sfsp-to-latest.md) to know what this change entails and how it affects users.
 
-    These fields help extract indicators from newly-created incidents
+### Enhanced Playbooks for Consistent Integration
 
-- The following playbooks changes have been introduced to extract indicators from incidents:
-    - Created a new playbook **Extract Indicators (Incidents)** 
-    - Renamed the playbook *Extract Indicators* to **Extract Indicators (Alerts)**
+The following playbooks now read from, and write to, the new keystore record instead of the respective global variables:
 
-- Incident fields in the global variable `Indicator_Type_Map` have been mapped as follows for indicator extraction from an incident:
+- **03 - Enrich > Extract Indicators (Alerts)** and **03 - Enrich > Extract Indicators (Incidents)** now refer to this key store record for *Exclude List* and *Field Type Mapping*.
 
-    ```JSON
-    "dLLName": "Process",
-    "filehash": "FileHash-MD5",
-    "processName": "Process",
-    "destinationIP": "IP Address",
-    "sourceIP": "IP Address",
-    "recipientEmailAddress": "Email Address",
-    "targetAsset": "Host",
-    "senderDomain": "Domain",
-    "senderEmailAddress": "Email Address"
-    ```
+- **03 - Enrich > Enrich Indicator (Type IP)** now refer to this key store record for CIDR Range data exclusively.
 
-- A new **Custom Picklist** widget helps generate customized messages for change in a pre-selected picklist
+- **04 - Actions** > **Add Exclude List to Keystore** adds an indicator to the *Exclude List* in the new key store record.
 
-## SOAR Framework Optimization
-
-- A new setup guide wizard launches automatically on first login. It contains a list of tasks whose completion is recommended as part of first time setup.
-
-- **Key Store** module has been removed from *SOAR Framework* and is now a part of **Platform Utilities** solution pack
-
-    - The playbook **04 - Actions > Add to Exclude List** now updates the Key Store records instead of global variables
-
-- The **Hunt** module has been removed from *SOAR Framework* and is now a part of **Threat Intel Management** solution pack.
-
-- **SLA Templates** module has been removed from *SOAR Framework* and is now a part of **SLA Management** solution pack
-
-    - The following playbooks have been moved to the **SLA Management** solution pack:
-        - Alert - [01] Capture All SLA (Upon Create)
-        - Alert - [02] Capture Ack SLA (Upon Update)
-        - Alert - [03] Capture Response SLA (Upon Update)
-        - Alert - [04] Check for SLA violations
-        - Alert - [05] Update Ack and Response Due dates (Post Severity Change)
-        - Alert - Periodic Update Alert SLA Status
-        - Alert - Update SLA Details
-        - Fetch SLA Details
-        - Incident - [01] Capture All SLA (Upon Create)
-        - Incident - [02] Capture Ack SLA (Upon Update)
-        - Incident - [03] Capture Response SLA (Upon Update)
-        - Incident - [04] Check for SLA violations
-        - Incident - [05] Update Response and Ack Due date (Post Severity Change)
-        - Incident - [06] Check for Ack SLA violations
-        - Incident - [07] Check for Response SLA violations
-        - Incident - Periodic Update Incident SLA Status
-        - Incidents - Update SLA Details
-        - Notify Ack SLA Violation
-        - Notify Response SLA Violation
-        - Pause SLA - Alerts
-        - Pause SLA - Incidents
-
-- The following playbooks have been moved to the **SOC Utilities** solution pack:
-
-    - 06 - IRP - Reporting > Export Selected Records
-    - 06 - IRP - Reporting > Import Data
-    - 08 - Utilities > Activate Inactive Users
-    - 08 - Utilities > Activate Inactive Users - Update User Status
-    - 08 - Utilities > Convert FortiSOAR User to SAML - Collect User Email IDs
-    - 08 - Utilities > Convert FortiSOAR User to SAML - Update User Type
-
-- Removed the following playbooks from the collection **06 - IRP - Case Management** as the **Approval** module is no longer a part of SOAR Framework solution pack:
-
-    - Approval - On Email Receipt - Process Email
-    - Approval - On Email Receipt (IMAP)
-    - Approval - On Email Receipt (Exchange)
-    - Approval - On Create
-
-- **Code Snippet** connector now no longer installs with the SOAR Framework solution pack. It is still available to install from the Content Hub.
-
-- A new notification rule replaces the playbook **Notify Failed Playbook Executions**.
-
-- The following playbooks are now inactive by default:
-
-    - Compute Alert Priority Weight(Post Update)
-    - Compute Alert Priority Weight(Post Update - Indicator Linked)
-    - Compute Alert Priority Weight(Post Update - Indicator Reputation Update)
-
-<table>
-    <th>NOTE</th>
-    <td>To compute priority weight of an alert, mark these playbooks as <strong>Active</strong> from <strong>Automation</strong> <img src="./docs/res/icon-chevron-right.svg"> <strong>Playbooks</strong> <img src="./docs/res/icon-chevron-right.svg"> <strong>03 - Triage</strong>.</td>
-</table>
-
-## Incident Detailed View
-
-- The *Picklist as Phases* widget is now a part of an incident's detail view to show incident progress as steps
+Refer to the [Extending default indicator extraction process](./docs/extending-default-indicator-extraction-process.md) section to understand the improved extraction configuration process.
 
 ## Playbook Enhancements
 
-- Updated the *04 - Actions > Asset - Deploy Patch* playbook's approval step as per the new flow
+### Upgraded Action for Artifact Extraction
 
-- Users can now choose to close the alert after selecting the reason on the manual input requested by the playbook *Escalate to incident*.
+The solution replaces the deprecated **Extract Artifacts from String** action from the Utilities connector with the updated version from Utilities v3.5.0. The following playbooks were updated to accommodate this change:
 
-## Bug Fixes
+- **03 - Enrich > Extract Indicators (Alerts)**
+- **03 - Enrich > Extract Indicators (Incidents)**
+- **03 - Enrich > Extract Indicators from Attachments**
+- **05 - Hunt > Hunt Indicators**
+- **08 - Utilities > Indicator - Import Bulk Indicators**
 
-- Fixed an issue where the *Extract Indicator* playbook failed to execute for alerts of type *Suspicious Email* and *Phishing*, if the attached file did not have any content.
+### Limiting Playbook Edits
 
-- A pre-processing rule now ensures that indicators of type file are created only when a file is attached to the indicator
+With FortiSOAR `v7.6.1` editing [system playbooks](./docs/contents.md#playbook-collection) is now restricted with the exception of the following:
 
-- Fixed response mappings in the *04 - Action > Action - Asset Mitigation* playbook's manual input step
+- All playbooks under the collection **04 - Actions**.
+- The playbook  **Alert - Close Corresponding SIEM Alert** under the collection **06 - IRP - Case Management**.
 
-- Escalate Playbook button now becomes invisible when an alert is escalated.
+For all other playbooks, users must create a copy to make edits.
+
+### Safeguarding User-Modified Playbooks
+
+Previously, playbooks included with the *SOAR Framework Solution Pack* would overwrite any user-modified versions during an upgrade.
+
+Now,
+- User-modified playbooks are preserved.
+- Shipped playbooks are saved as a separate version labeled `Base`. Refer to the following **Saving versions of your playbook
+
+This enhancement ensures that user changes remain intact after upgrade while still allowing access to the latest shipped versions for reference or use.
+
+### Additional Enhancements
+
+- The **Full App Permission** role no longer allows deletion of **Key Store** records.
+
+- The tasks in **Streamline** section, under **Setup Guide** ![setup guide icon](./docs/res/icon-setup-guide.svg), have been reordered.
+
+- The tasks in **Streamline** section, under **Setup Guide**, have been reordered.
+
+    - The button *Configure Exclude List* is now renamed to **Manage Indicator Exclusion List**  
+
+- Default list of pre-installed connectors has been reduced to the following:
+
+    - Exchange
+    - File Content Extraction
+    - Fortinet FortiEDR
+    - Fortinet FortiGate
+    - Fortinet FortiClient EMS
+    - VirusTotal
+    - Whois RDAP
+
+> [!Note]
+> This change is applicable only to new installations. Additional connectors can still be downloaded and installed from the Content Hub.

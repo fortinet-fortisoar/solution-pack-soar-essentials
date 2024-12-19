@@ -111,17 +111,17 @@
                     "data": "{{vars.item.data['extracted_text']}}",
                     "whitelist": "{{vars.input.params.excludedIndicators}}",
                     "case_sensitive": false,
-                    "override_regex": false,
-                    "private_whitelist": true
+                    "private_whitelist": true,
+                    "extract_defang_indicators": false
                 },
-                "version": "3.3.0",
+                "version": "3.5.0",
                 "for_each": {
                     "item": "{{vars.extracted_text}}",
                     "parallel": false,
                     "condition": "{{vars.item.data['extracted_text']}}"
                 },
                 "connector": "cyops_utilities",
-                "operation": "extract_artifacts",
+                "operation": "extract_artifacts_new",
                 "operationTitle": "FSR: Extract Artifacts from String",
                 "step_variables": []
             },

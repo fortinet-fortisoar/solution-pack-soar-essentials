@@ -1,3 +1,6 @@
+| [Home](../README.md) |
+|----------------------|
+
 # *Pluggable* Enrichment Support for Shared Tenancy
 
 In shared tenancy each shared tenant has a different connector configuration. However, only the default connector configuration is used for the shared tenant record. This section helps configure *pluggable* enrichment support for shared tenancy. To know more about shared tenancy refer to the [Multi-Tenancy Support Guide](https://docs.fortinet.com/document/fortisoar/7.4.0/multi-tenancy-support-guide/744444/shared-tenancy-support) in FortiSOAR&trade; product documentation.
@@ -68,4 +71,9 @@ Following steps help edit the *03 – Enrich > Enrich Indicators (Type All)* pla
 
 1. A connector upgrade overwrites the modified enrichment playbooks. Hence, keep a backup of the modified playbooks before a connector upgrade.
 
-2. If users have moved the *pluggable* enrichment playbooks to another collection, on connector upgrade, they have to deactivate all the *pluggable* enrichment playbooks in the upgraded connector's sample playbook collection. 
+2. If users have moved the *pluggable* enrichment playbooks to another collection, on connector upgrade, they have to deactivate all the *pluggable* enrichment playbooks in the upgraded connector's sample playbook collection.
+
+## Next Steps
+
+| [Installation](./setup.md#installation) | [Configuration](./setup.md#configuration) | [Usage](./usage.md) | [Contents](./contents.md) |
+|-----------------------------------------|-------------------------------------------|---------------------|---------------------------|

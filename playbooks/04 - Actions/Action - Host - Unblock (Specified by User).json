@@ -47,6 +47,7 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "group": null,
             "uuid": "0521eefe-026d-46e2-9234-1664a1b003c0"
         },
         {
@@ -68,6 +69,7 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "group": null,
             "uuid": "eb91941e-f426-4380-9976-23c3ff855c38"
         },
         {
@@ -145,6 +147,7 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "group": null,
             "uuid": "1f8c112f-7281-496f-90a4-64a731766898"
         },
         {
@@ -167,6 +170,7 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "group": null,
             "uuid": "de45b57c-69c1-49da-a4db-97dd1b4340a4"
         }
     ],
@@ -178,16 +182,8 @@
             "sourceStep": "\/api\/3\/workflow_steps\/de45b57c-69c1-49da-a4db-97dd1b4340a4",
             "label": null,
             "isExecuted": false,
+            "group": null,
             "uuid": "80568603-55a3-4cd3-b212-aba4b6ceb2a8"
-        },
-        {
-            "@type": "WorkflowRoute",
-            "name": "Start -> Create IP Indicator _ Deduplicated",
-            "targetStep": "\/api\/3\/workflow_steps\/0521eefe-026d-46e2-9234-1664a1b003c0",
-            "sourceStep": "\/api\/3\/workflow_steps\/1f8c112f-7281-496f-90a4-64a731766898",
-            "label": null,
-            "isExecuted": false,
-            "uuid": "c9bcbfe9-e974-4d4a-a5aa-5b619673dfac"
         },
         {
             "@type": "WorkflowRoute",
@@ -196,10 +192,24 @@
             "sourceStep": "\/api\/3\/workflow_steps\/0521eefe-026d-46e2-9234-1664a1b003c0",
             "label": null,
             "isExecuted": false,
+            "group": null,
             "uuid": "1985754e-b495-4041-940d-20339df40912"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Create IP Indicator _ Deduplicated",
+            "targetStep": "\/api\/3\/workflow_steps\/0521eefe-026d-46e2-9234-1664a1b003c0",
+            "sourceStep": "\/api\/3\/workflow_steps\/1f8c112f-7281-496f-90a4-64a731766898",
+            "label": null,
+            "isExecuted": false,
+            "group": null,
+            "uuid": "c9bcbfe9-e974-4d4a-a5aa-5b619673dfac"
         }
     ],
+    "groups": [],
     "priority": null,
+    "playbookOrigin": "\/api\/3\/picklists\/b6d710a9-a8ec-41ec-8817-fe9fa062fcdd",
+    "isEditable": true,
     "uuid": "db06501c-c707-4d38-b539-2abfc06d3f67",
     "owners": [],
     "isPrivate": false,

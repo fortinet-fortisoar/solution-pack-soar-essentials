@@ -1,54 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   width="8mm"
-   height="7mm"
-   viewBox="0 0 8 7"
-   version="1.1"
-   id="svg5"
-   xml:space="preserve"
-   inkscape:version="1.2.1 (9c6d41e4, 2022-07-14)"
-   sodipodi:docname="icon-add.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
-     id="namedview7"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:document-units="mm"
-     showgrid="false"
-     inkscape:zoom="6.2502245"
-     inkscape:cx="-20.719256"
-     inkscape:cy="-12.559549"
-     inkscape:window-width="1864"
-     inkscape:window-height="1027"
-     inkscape:window-x="56"
-     inkscape:window-y="25"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" /><defs
-     id="defs2" /><g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(-101,-145)"><rect
-       style="fill:#22a6af;fill-opacity:1;stroke-width:0.309617"
-       id="rect800"
-       width="8"
-       height="7"
-       x="101"
-       y="145" /><g
-       id="g2273"
-       transform="translate(17.64866,-12.255055)"><path
-         style="fill:#22a6af;fill-opacity:1;stroke:#ffffff;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
-         d="m 87.35134,159.08295 v 3.34421"
-         id="path2267" /><path
-         style="fill:#22a6af;fill-opacity:1;stroke:#ffffff;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1"
-         d="m 89.023445,160.75506 h -3.34421"
-         id="path2269" /></g></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>add</title>
+    <desc>Created with Sketch.</desc>
+    <g id="add" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-135" transform="translate(1.000000, 1.000000)" fill="#000000" fill-rule="nonzero">
+            <path d="M0.777777778,7.58333333 L13.2222222,7.58333333 C13.5443883,7.58333333 13.8055556,7.3221661 13.8055556,7 C13.8055556,6.6778339 13.5443883,6.41666667 13.2222222,6.41666667 L0.777777778,6.41666667 C0.455611674,6.41666667 0.194444444,6.6778339 0.194444444,7 C0.194444444,7.3221661 0.455611674,7.58333333 0.777777778,7.58333333 Z" id="Path-96"></path>
+            <path d="M6.41666667,0.777777778 L6.41666667,13.2222222 C6.41666667,13.5443883 6.6778339,13.8055556 7,13.8055556 C7.3221661,13.8055556 7.58333333,13.5443883 7.58333333,13.2222222 L7.58333333,0.777777778 C7.58333333,0.455611674 7.3221661,0.194444444 7,0.194444444 C6.6778339,0.194444444 6.41666667,0.455611674 6.41666667,0.777777778 Z" id="Path-96"></path>
+        </g>
+    </g>
+</svg>
